@@ -12,6 +12,7 @@ import com.xinto.cashier.domain.model.price
 import com.xinto.cashier.domain.repository.DailyStatusRepositoryImpl
 import com.xinto.cashier.ui.screen.DailyStatusState
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -24,7 +25,7 @@ class DailyStatusViewModel : ViewModel() {
     var total by mutableStateOf(Price.Zero.toString())
         private set
 
-    private var job: Job? = null
+    private var job = DailyStatusRepositoryImpl.observeCashMeals().setup()
 
     fun select(state: DailyStatusState) {
         this.state = state
@@ -33,7 +34,11 @@ class DailyStatusViewModel : ViewModel() {
             DailyStatusState.CardMeals -> DailyStatusRepositoryImpl.observeCardMeals()
             DailyStatusState.CashDrinks -> DailyStatusRepositoryImpl.observeCashDrinks()
             DailyStatusState.CardDrinks -> DailyStatusRepositoryImpl.observeCardDrinks()
-        }.onEach {
+        }.setup()
+    }
+
+    private fun Flow<List<StatusProduct>>.setup(): Job {
+        return this.onEach {
             items.clear()
             items.addAll(it)
 
@@ -42,7 +47,7 @@ class DailyStatusViewModel : ViewModel() {
     }
 
     override fun onCleared() {
-        job?.cancel()
+        job.cancel()
     }
 
 }
