@@ -89,7 +89,7 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
                             Text("რაოდენობა: $quantity")
                         },
                         trailing = {
-                            Text(item.price.toString())
+                            Text(item.price.toString(), style = TextStyle(fontSize = 20.sp))
                         }
                     )
                 }

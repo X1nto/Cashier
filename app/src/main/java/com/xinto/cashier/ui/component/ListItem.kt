@@ -58,7 +58,7 @@ fun ListItem(
             ) {
                 CompositionLocalProvider(
                     LocalTextStyle provides TextStyle(
-                        fontSize = 20.sp,
+                        fontSize = 22.sp,
                         fontWeight = FontWeight.Medium
                     )
                 ) {
@@ -66,7 +66,7 @@ fun ListItem(
                 }
                 if (subtitle != null) {
                     CompositionLocalProvider(
-                        LocalTextStyle provides TextStyle(fontSize = 16.sp),
+                        LocalTextStyle provides TextStyle(fontSize = 18.sp),
                         LocalContentColor provides LocalContentColor.current.copy(alpha = 0.8f)
                     ) {
                         subtitle()

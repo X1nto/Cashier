@@ -32,6 +32,7 @@ object RegistryRepositoryImpl : RegistryRepository {
             MealSelectableProduct(name = "ღვეზელი ქათმით", price = 2.8),
             MealSelectableProduct(name = "ღვეზელი სოკოთი", price = 1.8),
             MealSelectableProduct(name = "ღვეზელი კარტოფილით", price = 1.5),
+            MealSelectableProduct(name = "ღვეზელი ხორცით", price = 2.5),
             MealSelectableProduct(name = "ჰოთდოგი", price = 2.0),
             MealSelectableProduct(name = "პიცა", price = 2.5),
             MealSelectableProduct(name = "ნამცხვარი ვაშლის დარიჩინით", price = 2.5),

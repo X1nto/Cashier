@@ -1,5 +1,6 @@
 package com.xinto.cashier.db.store
 
+import android.util.Log
 import com.xinto.cashier.db.entity.EntityProduct
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -25,7 +26,10 @@ object ProductStoreImpl : ProductStore {
         products.forEach {
             val existing = entities[it.id]
             if (existing != null) {
-                entities[it.id] = existing.copy(price = existing.price + it.price)
+                entities[it.id] = existing.copy(
+                    quantity = existing.quantity + it.quantity
+                )
+                Log.d("test", "price: ${existing.price}, ${it.price} quantity: ${existing.quantity}, ${it.quantity}")
             } else {
                 entities[it.id] = it
             }

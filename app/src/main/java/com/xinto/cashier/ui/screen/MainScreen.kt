@@ -1,5 +1,6 @@
 package com.xinto.cashier.ui.screen
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -17,6 +18,11 @@ import com.xinto.cashier.ui.viewmodel.Screen
 @Composable
 fun MainScreen() {
     val viewModel: MainViewModel = viewModel()
+    BackHandler {
+        if (viewModel.currentScreen == Screen.Daily) {
+            viewModel.switchToRegistry()
+        }
+    }
     Row {
         Column(modifier = Modifier.width(72.dp)) {
             Tab(
