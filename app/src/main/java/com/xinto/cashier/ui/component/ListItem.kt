@@ -26,7 +26,11 @@ inline fun <T> LazyListScope.dividedItems(
     contentType = { _: Int, item: T -> contentType(item) }
 ) { index, item ->
     if (index != 0) {
-        Box(Modifier.fillParentMaxWidth().height(1.dp).background(Color.LightGray))
+        Box(
+            Modifier
+                .fillParentMaxWidth()
+                .height(1.dp)
+                .background(Color.LightGray))
     }
     itemContent(item)
 }

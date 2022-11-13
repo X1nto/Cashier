@@ -37,6 +37,7 @@ fun RowScope.Tab(
         }
     }
 }
+
 @Composable
 fun ColumnScope.Tab(
     selected: Boolean,

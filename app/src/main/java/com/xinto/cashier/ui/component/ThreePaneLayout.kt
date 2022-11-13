@@ -18,7 +18,11 @@ fun ThreePaneLayout(
         Box(modifier = Modifier.weight(1f)) {
             paneOne()
         }
-        Box(Modifier.fillMaxHeight().width(2.dp).background(Color.LightGray))
+        Box(
+            Modifier
+                .fillMaxHeight()
+                .width(2.dp)
+                .background(Color.LightGray))
         Column(
             modifier = Modifier
                 .weight(1.2f)
@@ -27,7 +31,11 @@ fun ThreePaneLayout(
             Box(modifier = Modifier.weight(1f)) {
                 paneTwo()
             }
-            Box(Modifier.fillMaxWidth().height(2.dp).background(Color.LightGray))
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(Color.LightGray))
             Box(modifier = Modifier.background(Color.White)) {
                 paneThree()
             }

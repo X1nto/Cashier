@@ -1,7 +1,7 @@
 package com.xinto.cashier.domain.repository
 
-import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityPaymentType
+import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityProductType
 import com.xinto.cashier.db.store.ProductStoreImpl
 import com.xinto.cashier.domain.model.*
@@ -66,7 +66,10 @@ object RegistryRepositoryImpl : RegistryRepository {
         storeProducts(selectedProducts, EntityPaymentType.Cash)
     }
 
-    private suspend fun storeProducts(selectedProducts: List<SelectedProduct>, entityPaymentType: EntityPaymentType) {
+    private suspend fun storeProducts(
+        selectedProducts: List<SelectedProduct>,
+        entityPaymentType: EntityPaymentType
+    ) {
         ProductStoreImpl.putDailyProducts(
             selectedProducts.map {
                 it.toEntityProduct(entityPaymentType)

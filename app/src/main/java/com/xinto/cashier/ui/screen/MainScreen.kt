@@ -11,7 +11,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.xinto.cashier.R
 import com.xinto.cashier.ui.component.Icon
 import com.xinto.cashier.ui.component.Tab
-import com.xinto.cashier.ui.viewmodel.*
+import com.xinto.cashier.ui.viewmodel.MainViewModel
+import com.xinto.cashier.ui.viewmodel.Screen
 
 @Composable
 fun MainScreen() {
@@ -31,7 +32,11 @@ fun MainScreen() {
                 Icon(painter = painterResource(R.drawable.ic_history))
             }
         }
-        Box(Modifier.fillMaxHeight().width(2.dp).background(Color.LightGray))
+        Box(
+            Modifier
+                .fillMaxHeight()
+                .width(2.dp)
+                .background(Color.LightGray))
         Box(modifier = Modifier.weight(1f)) {
             when (viewModel.currentScreen) {
                 Screen.Registry -> {

@@ -3,10 +3,7 @@ package com.xinto.cashier.ui.viewmodel
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xinto.cashier.domain.model.SelectedProduct
-import com.xinto.cashier.domain.model.SelectableProduct
-import com.xinto.cashier.domain.model.price
-import com.xinto.cashier.domain.model.toSelectedProduct
+import com.xinto.cashier.domain.model.*
 import com.xinto.cashier.domain.repository.RegistryRepositoryImpl
 import com.xinto.cashier.ui.screen.EditScreenState
 import kotlinx.coroutines.launch
@@ -20,7 +17,7 @@ class ProductViewModel : ViewModel() {
     var editScreenState by mutableStateOf<EditScreenState>(EditScreenState.Unselected)
         private set
 
-    var total by mutableStateOf("0.0")
+    var total by mutableStateOf(Price.Zero.toString())
         private set
 
     fun selectProduct(product: SelectableProduct) {
@@ -44,7 +41,6 @@ class ProductViewModel : ViewModel() {
         selectedProducts.remove(id)
         calculateTotal()
     }
-
 
     fun enterEditScreen(id: String) {
         val selectedProduct = selectedProducts[id]

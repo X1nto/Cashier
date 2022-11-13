@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xinto.cashier.domain.model.BottleStatusProduct
@@ -37,7 +36,11 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
                 DailyStatusState.values().forEachIndexed { index, state ->
                     Column(modifier = Modifier.weight(1f)) {
                         if (index != 0) {
-                            Spacer(Modifier.fillMaxWidth().background(Color.LightGray).height(1.dp))
+                            Spacer(
+                                Modifier
+                                    .fillMaxWidth()
+                                    .background(Color.LightGray)
+                                    .height(1.dp))
                         }
                         val interactionSource = remember { MutableInteractionSource() }
                         val pressed by interactionSource.collectIsPressedAsState()
@@ -53,7 +56,9 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
                                 )
                         ) {
                             Row(
-                                modifier = Modifier.fillMaxSize().padding(16.dp),
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
                                 horizontalArrangement = Arrangement.spacedBy(4.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -92,10 +97,12 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
         },
         paneThree = {
             Box(
-                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
                 contentAlignment = Alignment.CenterEnd
             ) {
-                Text(viewModel.price, style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.SemiBold))
+                Text("ჯამი: ${viewModel.total}", style = TextStyle(fontSize = 24.sp))
             }
         }
     )

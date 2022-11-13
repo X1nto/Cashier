@@ -3,7 +3,10 @@ package com.xinto.cashier.domain.repository
 import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityProductType
 import com.xinto.cashier.db.store.ProductStoreImpl
-import com.xinto.cashier.domain.model.*
+import com.xinto.cashier.domain.model.BottleStatusProduct
+import com.xinto.cashier.domain.model.MealStatusProduct
+import com.xinto.cashier.domain.model.StatusProduct
+import com.xinto.cashier.domain.model.toPrice
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -11,7 +14,7 @@ interface DailyStatusRepository {
 
     fun observeCashDrinks(): Flow<List<StatusProduct>>
     fun observeCardDrinks(): Flow<List<StatusProduct>>
-    
+
     fun observeCashMeals(): Flow<List<StatusProduct>>
     fun observeCardMeals(): Flow<List<StatusProduct>>
 

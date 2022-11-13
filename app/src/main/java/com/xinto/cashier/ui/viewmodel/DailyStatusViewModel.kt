@@ -12,7 +12,6 @@ import com.xinto.cashier.domain.model.price
 import com.xinto.cashier.domain.repository.DailyStatusRepositoryImpl
 import com.xinto.cashier.ui.screen.DailyStatusState
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -22,7 +21,7 @@ class DailyStatusViewModel : ViewModel() {
         private set
 
     val items = mutableStateListOf<StatusProduct>()
-    var price by mutableStateOf(Price.Zero.toString())
+    var total by mutableStateOf(Price.Zero.toString())
         private set
 
     private var job: Job? = null
@@ -38,7 +37,7 @@ class DailyStatusViewModel : ViewModel() {
             items.clear()
             items.addAll(it)
 
-            price = it.price().toString()
+            total = it.price().toString()
         }.launchIn(viewModelScope)
     }
 
