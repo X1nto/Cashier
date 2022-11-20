@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xinto.cashier.domain.model.*
 import com.xinto.cashier.domain.repository.RegistryRepositoryImpl
+import com.xinto.cashier.ui.screen.ChangeState
 import com.xinto.cashier.ui.screen.EditScreenState
 import kotlinx.coroutines.launch
 
@@ -15,6 +16,9 @@ class ProductViewModel : ViewModel() {
     val selectedProducts = mutableStateMapOf<String, SelectedProduct>()
 
     var editScreenState by mutableStateOf<EditScreenState>(EditScreenState.Unselected)
+        private set
+
+    var changeState by mutableStateOf<ChangeState>(ChangeState.Unselected)
         private set
 
     var total by mutableStateOf(Price.Zero.toString())
@@ -51,6 +55,14 @@ class ProductViewModel : ViewModel() {
 
     fun exitEditScreen() {
         editScreenState = EditScreenState.Unselected
+    }
+
+    fun enterChangeScreen() {
+        changeState = ChangeState.Change(price = selectedProducts.values.price())
+    }
+
+    fun exitChangeScreen() {
+        changeState = ChangeState.Unselected
     }
 
     fun payWithCash() {

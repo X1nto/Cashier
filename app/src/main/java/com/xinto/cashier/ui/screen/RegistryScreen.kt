@@ -23,10 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xinto.cashier.R
-import com.xinto.cashier.domain.model.BottleSelectedProduct
-import com.xinto.cashier.domain.model.MealSelectedProduct
-import com.xinto.cashier.domain.model.MeasuredSelectedProduct
-import com.xinto.cashier.domain.model.SelectedProduct
+import com.xinto.cashier.domain.model.*
 import com.xinto.cashier.ui.component.*
 import com.xinto.cashier.ui.viewmodel.ProductViewModel
 
@@ -120,13 +117,105 @@ fun RegistryScreen(
                 LargeSuccessIconButton(onClick = viewModel::payWithCard) {
                     Icon(painterResource(R.drawable.ic_credit_card))
                 }
-                LargeSuccessIconButton(onClick = viewModel::payWithCash) {
+                LargeSuccessIconButton(onClick = viewModel::enterChangeScreen) {
                     Icon(painterResource(R.drawable.ic_payments))
                 }
             }
         }
     )
     EditDialog(viewModel)
+    ChangeDialog(viewModel)
+}
+
+sealed interface ChangeState {
+    object Unselected : ChangeState
+    data class Change(val price: Price) : ChangeState
+}
+
+@Composable
+private fun ChangeDialog(
+    viewModel: ProductViewModel
+) {
+    val state = viewModel.changeState
+    if (state is ChangeState.Change) {
+        Dialog(
+            confirmButton = {
+                SuccessButton(
+                    modifier = Modifier.weight(1f),
+                    onClick = {
+                        viewModel.payWithCash()
+                        viewModel.exitChangeScreen()
+                    },
+                ) {
+                    Text("შენახვა")
+                }
+            },
+            dismissButton = {
+                DangerButton(
+                    modifier = Modifier.weight(1f),
+                    onClick = viewModel::exitChangeScreen
+                ) {
+                    Text("გაუქმება")
+                }
+            },
+            onDismissRequest = viewModel::exitChangeScreen,
+            title = { Text("ხურდა") },
+            subtitle = {
+
+            },
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                var textValue by remember { mutableStateOf("") }
+                var changeValue by remember { mutableStateOf("0ლ") }
+                var shouldShowChange by remember { mutableStateOf(false) }
+                LaunchedEffect(textValue) {
+                    val parsedValue = textValue.toDoubleOrNull()
+                    if (parsedValue != null && parsedValue >= state.price.price) {
+                        shouldShowChange = true
+                        changeValue = "${parsedValue - state.price.price}ლ"
+                    } else {
+                        shouldShowChange = false
+                    }
+                }
+                Row(
+                    modifier = Modifier.height(IntrinsicSize.Min),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    BasicTextField(
+                        modifier = Modifier.fillMaxHeight(),
+                        value = textValue,
+                        onValueChange = {
+                            textValue = it
+                        },
+                        maxLines = 1,
+                        singleLine = true,
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        textStyle = TextStyle(fontSize = 24.sp, textAlign = TextAlign.Center),
+                        decorationBox = {
+                            Box(
+                                modifier = Modifier
+                                    .heightIn(48.dp)
+                                    .border(1.dp, Color.LightGray),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                it()
+                            }
+                        }
+                    )
+                }
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.End),
+                    text = changeValue,
+                    style = TextStyle(fontSize = 28.sp, fontWeight = FontWeight.SemiBold)
+                )
+            }
+        }
+    }
 }
 
 @Composable

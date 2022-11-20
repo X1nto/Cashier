@@ -19,7 +19,7 @@ object RegistryRepositoryImpl : RegistryRepository {
 
     override suspend fun getProducts(): List<SelectableProduct> {
         return listOf(
-            MealSelectableProduct(name = "ხაჭაპური იმერული", price = 4.0),
+            MealSelectableProduct(name = "ხაჭაპური იმერული", price = 4.5),
             MealSelectableProduct(name = "ხაჭაპური ნახ ფენოვანი", price = 3.0),
             MealSelectableProduct(name = "ხაჭაპური აჭარული", price = 10.0),
             MealSelectableProduct(name = "ლობიანი იმერული", price = 3.0),
