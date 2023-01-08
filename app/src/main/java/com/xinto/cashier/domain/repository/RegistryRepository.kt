@@ -29,10 +29,12 @@ object RegistryRepositoryImpl : RegistryRepository {
             MealSelectableProduct(name = "ხაბიზგინა", price = 2.5),
             MealSelectableProduct(name = "ფიჩინი ხორცით", price = 7.0),
             MealSelectableProduct(name = "ფიჩინი სოკოთი", price = 5.0),
+            MealSelectableProduct(name = "ღვეზელი გურული", price = 3.5),
             MealSelectableProduct(name = "ღვეზელი ქათმით", price = 2.8),
             MealSelectableProduct(name = "ღვეზელი სოკოთი", price = 1.8),
             MealSelectableProduct(name = "ღვეზელი კარტოფილით", price = 1.5),
             MealSelectableProduct(name = "ღვეზელი ხორცით", price = 2.5),
+            MealSelectableProduct(name = "ღვეზელი ისპანახის", price = 2.0),
             MealSelectableProduct(name = "ჰოთდოგი", price = 2.0),
             MealSelectableProduct(name = "პიცა", price = 2.5),
             MealSelectableProduct(name = "ნამცხვარი ვაშლის დარიჩინით", price = 2.5),
@@ -56,6 +58,7 @@ object RegistryRepositoryImpl : RegistryRepository {
             BottleSelectableProduct(name = "ყავა კოლა", price = 2.0),
             BottleSelectableProduct(name = "ფანტა", price = 1.8),
             BottleSelectableProduct(name = "სპრაიტი", price = 1.8),
+            BottleSelectableProduct(name = "ენერგეტიკული", price = 2.0),
         )
     }
 
