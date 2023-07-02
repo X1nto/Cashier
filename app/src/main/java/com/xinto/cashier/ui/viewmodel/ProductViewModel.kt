@@ -28,11 +28,11 @@ class ProductViewModel(
     var total by mutableStateOf(Price.Zero.toString())
         private set
 
-    fun refresh() {
+    fun refresh(forceRefresh: Boolean = true) {
         viewModelScope.launch {
             state = ProductsState.Loading
 
-            state = when (val products = repository.getProducts()) {
+            state = when (val products = repository.getProducts(forceRefresh)) {
                 is Result.Success -> ProductsState.Success(products.data)
                 is Result.Error -> ProductsState.Error
             }
@@ -104,7 +104,7 @@ class ProductViewModel(
     }
 
     init {
-        refresh()
+        refresh(forceRefresh = false)
     }
 
 }

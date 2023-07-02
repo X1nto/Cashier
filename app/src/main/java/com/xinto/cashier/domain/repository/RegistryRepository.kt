@@ -1,5 +1,6 @@
 package com.xinto.cashier.domain.repository
 
+import android.util.Log
 import com.xinto.cashier.db.entity.EntityPaymentType
 import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityProductType
@@ -15,9 +16,9 @@ class RegistryRepository(
     private val productStore: ProductStore
 ) {
 
-    suspend fun getProducts(): Result<List<SelectableProduct>> {
+    suspend fun getProducts(forceRefresh: Boolean): Result<List<SelectableProduct>> {
         return try {
-            val data = registryApi.parseProducts().map {
+            val data = registryApi.getProducts(forceRefresh).map {
                 when (it.type) {
                     ApiProductType.Bottle -> {
                         BottleSelectableProduct(
@@ -35,6 +36,7 @@ class RegistryRepository(
             }
             Result.Success(data)
         } catch (e: Exception) {
+            Log.d("Registry repo", e.stackTraceToString())
             Result.Error
         }
     }
