@@ -4,16 +4,20 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.xinto.cashier.domain.model.*
-import com.xinto.cashier.domain.repository.RegistryRepositoryImpl
+import com.xinto.cashier.domain.repository.RegistryRepository
 import com.xinto.cashier.ui.screen.ChangeState
 import com.xinto.cashier.ui.screen.EditScreenState
+import com.xinto.cashier.ui.screen.ProductsState
 import kotlinx.coroutines.launch
 
-class ProductViewModel : ViewModel() {
-
-    val products = mutableStateListOf<SelectableProduct>()
+class ProductViewModel(
+    private val repository: RegistryRepository
+) : ViewModel() {
 
     val selectedProducts = mutableStateMapOf<String, SelectedProduct>()
+
+    var state by mutableStateOf<ProductsState>(ProductsState.Loading)
+        private set
 
     var editScreenState by mutableStateOf<EditScreenState>(EditScreenState.Unselected)
         private set
@@ -23,6 +27,17 @@ class ProductViewModel : ViewModel() {
 
     var total by mutableStateOf(Price.Zero.toString())
         private set
+
+    fun refresh() {
+        viewModelScope.launch {
+            state = ProductsState.Loading
+
+            state = when (val products = repository.getProducts()) {
+                is Result.Success -> ProductsState.Success(products.data)
+                is Result.Error -> ProductsState.Error
+            }
+        }
+    }
 
     fun selectProduct(product: SelectableProduct) {
         val existingSameProduct = selectedProducts[product.name]
@@ -67,14 +82,14 @@ class ProductViewModel : ViewModel() {
 
     fun payWithCash() {
         viewModelScope.launch {
-            RegistryRepositoryImpl.payWithCash(selectedProducts.values.toList())
+            repository.payWithCash(selectedProducts.values.toList())
             clearAll()
         }
     }
 
     fun payWithCard() {
         viewModelScope.launch {
-            RegistryRepositoryImpl.payWithCard(selectedProducts.values.toList())
+            repository.payWithCard(selectedProducts.values.toList())
             clearAll()
         }
     }
@@ -89,9 +104,7 @@ class ProductViewModel : ViewModel() {
     }
 
     init {
-        viewModelScope.launch {
-            products.addAll(RegistryRepositoryImpl.getProducts())
-        }
+        refresh()
     }
 
 }

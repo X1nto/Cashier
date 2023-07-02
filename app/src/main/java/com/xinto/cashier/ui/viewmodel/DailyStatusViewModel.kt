@@ -9,14 +9,16 @@ import androidx.lifecycle.viewModelScope
 import com.xinto.cashier.domain.model.Price
 import com.xinto.cashier.domain.model.StatusProduct
 import com.xinto.cashier.domain.model.price
-import com.xinto.cashier.domain.repository.DailyStatusRepositoryImpl
+import com.xinto.cashier.domain.repository.DailyStatusRepository
 import com.xinto.cashier.ui.screen.DailyStatusState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-class DailyStatusViewModel : ViewModel() {
+class DailyStatusViewModel(
+    private val repository: DailyStatusRepository
+) : ViewModel() {
 
     var state by mutableStateOf(DailyStatusState.CashMeals)
         private set
@@ -25,15 +27,15 @@ class DailyStatusViewModel : ViewModel() {
     var total by mutableStateOf(Price.Zero.toString())
         private set
 
-    private var job = DailyStatusRepositoryImpl.observeCashMeals().setup()
+    private var job = repository.observeCashMeals().setup()
 
     fun select(state: DailyStatusState) {
         this.state = state
         job = when (state) {
-            DailyStatusState.CashMeals -> DailyStatusRepositoryImpl.observeCashMeals()
-            DailyStatusState.CardMeals -> DailyStatusRepositoryImpl.observeCardMeals()
-            DailyStatusState.CashDrinks -> DailyStatusRepositoryImpl.observeCashDrinks()
-            DailyStatusState.CardDrinks -> DailyStatusRepositoryImpl.observeCardDrinks()
+            DailyStatusState.CashMeals -> repository.observeCashMeals()
+            DailyStatusState.CardMeals -> repository.observeCardMeals()
+            DailyStatusState.CashDrinks -> repository.observeCashDrinks()
+            DailyStatusState.CardDrinks -> repository.observeCardDrinks()
         }.setup()
     }
 

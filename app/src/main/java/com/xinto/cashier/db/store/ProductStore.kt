@@ -13,7 +13,7 @@ interface ProductStore {
 
 }
 
-object ProductStoreImpl : ProductStore {
+class DefaultProductStore : ProductStore {
 
     private val entities = mutableMapOf<String, EntityProduct>()
     private val flow = MutableSharedFlow<List<EntityProduct>>(replay = 1)

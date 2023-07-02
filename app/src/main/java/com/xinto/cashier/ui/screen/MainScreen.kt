@@ -8,16 +8,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.xinto.cashier.R
 import com.xinto.cashier.ui.component.Icon
 import com.xinto.cashier.ui.component.Tab
 import com.xinto.cashier.ui.viewmodel.MainViewModel
 import com.xinto.cashier.ui.viewmodel.Screen
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainScreen() {
-    val viewModel: MainViewModel = viewModel()
+    val viewModel: MainViewModel = getViewModel()
     BackHandler {
         if (viewModel.currentScreen == Screen.Daily) {
             viewModel.switchToRegistry()
@@ -46,10 +46,10 @@ fun MainScreen() {
         Box(modifier = Modifier.weight(1f)) {
             when (viewModel.currentScreen) {
                 Screen.Registry -> {
-                    RegistryScreen(viewModel())
+                    RegistryScreen(getViewModel())
                 }
                 Screen.Daily -> {
-                    DailyStatusScreen(viewModel())
+                    DailyStatusScreen(getViewModel())
                 }
             }
         }

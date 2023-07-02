@@ -1,15 +1,40 @@
 package com.xinto.cashier.ui.screen
 
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,8 +48,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.xinto.cashier.R
-import com.xinto.cashier.domain.model.*
-import com.xinto.cashier.ui.component.*
+import com.xinto.cashier.domain.model.BottleSelectedProduct
+import com.xinto.cashier.domain.model.MealSelectedProduct
+import com.xinto.cashier.domain.model.MeasuredSelectedProduct
+import com.xinto.cashier.domain.model.Price
+import com.xinto.cashier.domain.model.SelectableProduct
+import com.xinto.cashier.domain.model.SelectedProduct
+import com.xinto.cashier.ui.component.DangerButton
+import com.xinto.cashier.ui.component.DangerIconButton
+import com.xinto.cashier.ui.component.Dialog
+import com.xinto.cashier.ui.component.Icon
+import com.xinto.cashier.ui.component.IconButton
+import com.xinto.cashier.ui.component.LargeDangerIconButton
+import com.xinto.cashier.ui.component.LargeSuccessIconButton
+import com.xinto.cashier.ui.component.ListItem
+import com.xinto.cashier.ui.component.LocalContentColor
+import com.xinto.cashier.ui.component.SuccessButton
+import com.xinto.cashier.ui.component.Text
+import com.xinto.cashier.ui.component.ThreePaneLayout
+import com.xinto.cashier.ui.component.dividedItems
 import com.xinto.cashier.ui.viewmodel.ProductViewModel
 
 sealed interface EditScreenState {
@@ -35,26 +77,82 @@ sealed interface EditScreenState {
     data class Selected(val selectedProduct: SelectedProduct) : EditScreenState
 }
 
+@Immutable
+sealed interface ProductsState {
+    @Immutable
+    object Loading : ProductsState
+
+    @Stable
+    @JvmInline
+    value class Success(val products: List<SelectableProduct>) : ProductsState
+
+    @Immutable
+    object Error : ProductsState
+}
+
 @Composable
 fun RegistryScreen(
     viewModel: ProductViewModel,
 ) {
     ThreePaneLayout(
         paneOne = {
-            LazyColumn {
-                dividedItems(viewModel.products) { product ->
-                    ListItem(
-                        title = { Text(product.name) },
-                        subtitle = {
-                            Text("ფასი: ${product.price}")
-                        },
-                        trailing = {
-                            IconButton(onClick = { viewModel.selectProduct(product) }) {
-                                Icon(painterResource(R.drawable.ic_add))
+            Column {
+                Column {
+                    Row(
+                        modifier = Modifier
+                            .padding(12.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("პროდუქტები", style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Medium))
+                        Icon(
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clickable(onClick = viewModel::refresh),
+                            painter = painterResource(id = R.drawable.ic_refresh)
+                        )
+                    }
+                    Box(
+                        Modifier
+                            .height(1.dp)
+                            .background(Color.LightGray)
+                            .fillMaxWidth())
+                }
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    propagateMinConstraints = false,
+                    contentAlignment = Alignment.Center
+                ) {
+                    when (val state = viewModel.state) {
+                        is ProductsState.Loading -> {
+                            Text("მიმდინარეობს ჩატვირთვა...", style = TextStyle(fontSize = 28.sp))
+                        }
+                        is ProductsState.Error -> {
+                            Text("შეცდომა ჩატვირთვისას!", style = TextStyle(fontSize = 28.sp))
+                        }
+                        is ProductsState.Success -> {
+                            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                                dividedItems(state.products) { product ->
+                                    ListItem(
+                                        title = { Text(product.name) },
+                                        subtitle = {
+                                            Text("ფასი: ${product.price}")
+                                        },
+                                        trailing = {
+                                            IconButton(onClick = { viewModel.selectProduct(product) }) {
+                                                Icon(painterResource(R.drawable.ic_add))
+                                            }
+                                        }
+                                    )
+                                }
                             }
                         }
-                    )
+                    }
                 }
+
             }
         },
         paneTwo = {
