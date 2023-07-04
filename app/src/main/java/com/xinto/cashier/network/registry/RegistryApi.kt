@@ -10,6 +10,7 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.get
 import io.ktor.client.request.header
 import io.ktor.client.statement.bodyAsText
+import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -38,11 +39,12 @@ class DefaultRegistryApi(context: Context) : RegistryApi {
     override suspend fun getProducts(forceRefresh: Boolean): List<ApiProduct> {
         return withContext(Dispatchers.IO) {
             if (forceRefresh || !file.exists()) {
-                file.delete()
-                file.createNewFile()
-
                 val response = client.get("https://raw.githubusercontent.com/X1nto/Cashier/master/registry.json")
-                file.writeText(response.bodyAsText())
+                if (response.status.isSuccess()) {
+                    file.delete()
+                    file.createNewFile()
+                    file.writeText(response.bodyAsText())
+                }
 //                return@withContext response.body()
             }
 
