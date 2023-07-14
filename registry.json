@@ -41,6 +41,7 @@
   {"name": "ჩაი", "price": "1.0", "type": "bottle"},
   {"name": "ცივი ჩაი", "price": "2.0", "type": "bottle"},
   {"name": "კოკა კოლა", "price": "1.8", "type": "bottle"},
+  {"name": "კოკა კოლა ქილის", "price": "2.0", "type": "bottle"},
   {"name": "ყავა კოლა", "price": "2.0", "type": "bottle"},
   {"name": "ფანტა", "price": "1.8", "type": "bottle"},
   {"name": "სპრაიტი", "price": "1.8", "type": "bottle"},
