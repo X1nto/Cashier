@@ -26,6 +26,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -176,6 +177,11 @@ fun RegistryScreen(
             }
         },
         footer = {
+            val enableButtons by remember {
+                derivedStateOf {
+                    viewModel.selectedProducts.isNotEmpty()
+                }
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -183,7 +189,10 @@ fun RegistryScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End)
             ) {
-                LargeDangerIconButton(onClick = viewModel::clearAll) {
+                LargeDangerIconButton(
+                    onClick = viewModel::clearAll,
+                    enabled = enableButtons
+                ) {
                     Icon(painterResource(R.drawable.ic_close))
                 }
                 Box(
@@ -193,10 +202,16 @@ fun RegistryScreen(
                 ) {
                     Text("ჯამი: ${viewModel.total}", style = TextStyle(fontSize = 24.sp))
                 }
-                LargeSuccessIconButton(onClick = viewModel::payWithCard) {
+                LargeSuccessIconButton(
+                    onClick = viewModel::payWithCard,
+                    enabled = enableButtons
+                ) {
                     Icon(painterResource(R.drawable.ic_credit_card))
                 }
-                LargeSuccessIconButton(onClick = viewModel::enterChangeScreen) {
+                LargeSuccessIconButton(
+                    onClick = viewModel::enterChangeScreen,
+                    enabled = enableButtons
+                ) {
                     Icon(painterResource(R.drawable.ic_payments))
                 }
             }
