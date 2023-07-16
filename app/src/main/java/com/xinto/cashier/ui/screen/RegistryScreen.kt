@@ -271,7 +271,7 @@ private fun ChangeDialog(
                     val parsedValue = textValue.toDoubleOrNull()
                     if (parsedValue != null && parsedValue >= state.price.price) {
                         shouldShowChange = true
-                        changeValue = "${parsedValue - state.price.price}ლ"
+                        changeValue = "${String.format("%.2f", parsedValue - state.price.price)}ლ"
                     } else {
                         shouldShowChange = false
                     }
