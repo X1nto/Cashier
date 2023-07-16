@@ -5,8 +5,14 @@ import com.xinto.cashier.db.entity.EntityPaymentType
 import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityProductType
 import com.xinto.cashier.db.store.ProductsDao
-import com.xinto.cashier.domain.model.*
+import com.xinto.cashier.domain.model.BottleSelectableProduct
+import com.xinto.cashier.domain.model.BottleSelectedProduct
+import com.xinto.cashier.domain.model.MealSelectableProduct
+import com.xinto.cashier.domain.model.MealSelectedProduct
+import com.xinto.cashier.domain.model.MeasuredSelectedProduct
 import com.xinto.cashier.domain.model.Result
+import com.xinto.cashier.domain.model.SelectableProduct
+import com.xinto.cashier.domain.model.SelectedProduct
 import com.xinto.cashier.network.registry.RegistryApi
 import com.xinto.cashier.network.registry.model.ApiProductType
 
@@ -26,6 +32,7 @@ class RegistryRepository(
                             price = it.price.toDouble()
                         )
                     }
+
                     ApiProductType.Meal -> {
                         MealSelectableProduct(
                             name = it.name,

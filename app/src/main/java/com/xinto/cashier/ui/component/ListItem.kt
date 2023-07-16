@@ -1,7 +1,12 @@
 package com.xinto.cashier.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -30,7 +35,8 @@ inline fun <T> LazyListScope.dividedItems(
             Modifier
                 .fillParentMaxWidth()
                 .height(1.dp)
-                .background(Color.LightGray))
+                .background(Color.LightGray)
+        )
     }
     itemContent(item)
 }

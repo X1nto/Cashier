@@ -21,7 +21,8 @@ fun HorizontalDivider(
         modifier
             .fillMaxWidth()
             .height(height)
-            .background(Color.LightGray))
+            .background(Color.LightGray)
+    )
 }
 
 @Composable
@@ -33,5 +34,6 @@ fun VerticalDivider(
         modifier
             .fillMaxHeight()
             .width(width)
-            .background(Color.LightGray))
+            .background(Color.LightGray)
+    )
 }

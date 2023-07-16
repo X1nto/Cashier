@@ -62,6 +62,7 @@ class DailyStatusRepository(
                     meals = quantity
                 )
             }
+
             EntityProductType.Bottle -> {
                 BottleStatusProduct(
                     name = name,
@@ -69,6 +70,7 @@ class DailyStatusRepository(
                     bottles = quantity
                 )
             }
+
             else -> throw NotImplementedError()
         }
     }

@@ -42,13 +42,15 @@ class DefaultRegistryApi(context: Context) : RegistryApi {
         return withContext(Dispatchers.IO) {
             if (forceRefresh || !file.exists()) {
                 try {
-                    val response = client.get("https://raw.githubusercontent.com/X1nto/Cashier/master/registry.json")
+                    val response =
+                        client.get("https://raw.githubusercontent.com/X1nto/Cashier/master/registry.json")
                     if (response.status.isSuccess()) {
                         file.delete()
                         file.createNewFile()
                         file.writeText(response.bodyAsText())
                     }
-                } catch (_: UnknownHostException) {}
+                } catch (_: UnknownHostException) {
+                }
             }
 
             Json.decodeFromStream(file.inputStream())

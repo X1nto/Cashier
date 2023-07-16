@@ -18,8 +18,8 @@
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.Cashier"
-            android:screenOrientation="landscape">
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.Cashier">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

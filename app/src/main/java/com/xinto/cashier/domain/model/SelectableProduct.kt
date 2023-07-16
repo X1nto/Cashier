@@ -23,6 +23,7 @@ fun SelectableProduct.toSelectedProduct(): SelectedProduct {
                 name = name
             )
         }
+
         SelectableProductType.Bottle -> {
             BottleSelectedProduct(
                 bottlePrice = price,

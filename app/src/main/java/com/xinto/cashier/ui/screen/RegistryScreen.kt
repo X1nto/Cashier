@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.BasicTextField
@@ -33,7 +32,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
@@ -55,16 +53,16 @@ import com.xinto.cashier.ui.component.DangerButton
 import com.xinto.cashier.ui.component.DangerIconButton
 import com.xinto.cashier.ui.component.Dialog
 import com.xinto.cashier.ui.component.Icon
-import com.xinto.cashier.ui.component.PrimaryIconButton
 import com.xinto.cashier.ui.component.LargeDangerIconButton
 import com.xinto.cashier.ui.component.LargeSuccessIconButton
 import com.xinto.cashier.ui.component.ListItem
 import com.xinto.cashier.ui.component.LocalContentColor
 import com.xinto.cashier.ui.component.PaneHeader
+import com.xinto.cashier.ui.component.PaneLayout
+import com.xinto.cashier.ui.component.PrimaryIconButton
+import com.xinto.cashier.ui.component.SmallIconButton
 import com.xinto.cashier.ui.component.SuccessButton
 import com.xinto.cashier.ui.component.Text
-import com.xinto.cashier.ui.component.PaneLayout
-import com.xinto.cashier.ui.component.SmallIconButton
 import com.xinto.cashier.ui.component.dividedItems
 import com.xinto.cashier.ui.viewmodel.ProductViewModel
 
@@ -115,9 +113,11 @@ fun RegistryScreen(
                     is ProductsState.Loading -> {
                         Text("მიმდინარეობს ჩატვირთვა...", style = TextStyle(fontSize = 28.sp))
                     }
+
                     is ProductsState.Error -> {
                         Text("შეცდომა ჩატვირთვისას!", style = TextStyle(fontSize = 28.sp))
                     }
+
                     is ProductsState.Success -> {
                         LazyColumn(modifier = Modifier.fillMaxSize()) {
                             dividedItems(state.products) { product ->
@@ -127,7 +127,11 @@ fun RegistryScreen(
                                         Text("ფასი: ${product.price}")
                                     },
                                     trailing = {
-                                        PrimaryIconButton(onClick = { viewModel.selectProduct(product) }) {
+                                        PrimaryIconButton(onClick = {
+                                            viewModel.selectProduct(
+                                                product
+                                            )
+                                        }) {
                                             Icon(painterResource(R.drawable.ic_add))
                                         }
                                     }
@@ -152,9 +156,11 @@ fun RegistryScreen(
                                 is MealSelectedProduct -> {
                                     Text("რაოდენობა: ${product.meals}")
                                 }
+
                                 is MeasuredSelectedProduct -> {
                                     Text("წონა: ${product.kilos}კგ")
                                 }
+
                                 is BottleSelectedProduct -> {
                                     Text("რაოდენობა: ${product.bottles}")
                                 }
@@ -335,6 +341,7 @@ private fun EditDialog(
                     is MealSelectedProduct, is BottleSelectedProduct -> {
                         Text("ჩაწერეთ რაოდენობა")
                     }
+
                     is MeasuredSelectedProduct -> {
                         Text("ჩაწერეთ წონა")
                     }

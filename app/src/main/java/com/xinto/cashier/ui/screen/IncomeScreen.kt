@@ -4,7 +4,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +30,17 @@ import androidx.compose.ui.unit.sp
 import com.xinto.cashier.R
 import com.xinto.cashier.domain.model.BottleStatusProduct
 import com.xinto.cashier.domain.model.MealStatusProduct
-import com.xinto.cashier.ui.component.*
+import com.xinto.cashier.ui.component.Button
+import com.xinto.cashier.ui.component.DangerButton
+import com.xinto.cashier.ui.component.Dialog
+import com.xinto.cashier.ui.component.Icon
+import com.xinto.cashier.ui.component.ListItem
+import com.xinto.cashier.ui.component.PaneHeader
+import com.xinto.cashier.ui.component.PaneLayout
+import com.xinto.cashier.ui.component.RadioButton
+import com.xinto.cashier.ui.component.SmallIconButton
+import com.xinto.cashier.ui.component.Text
+import com.xinto.cashier.ui.component.dividedItems
 import com.xinto.cashier.ui.viewmodel.IncomeViewModel
 
 enum class DailyStatusState(val title: String) {
@@ -67,7 +85,8 @@ fun IncomeScreen(viewModel: IncomeViewModel) {
                                 Modifier
                                     .fillMaxWidth()
                                     .background(Color.LightGray)
-                                    .height(1.dp))
+                                    .height(1.dp)
+                            )
                         }
                         val interactionSource = remember { MutableInteractionSource() }
                         val pressed by interactionSource.collectIsPressedAsState()

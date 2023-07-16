@@ -1,9 +1,17 @@
 package com.xinto.cashier.ui.viewmodel
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.xinto.cashier.domain.model.*
+import com.xinto.cashier.domain.model.Price
+import com.xinto.cashier.domain.model.Result
+import com.xinto.cashier.domain.model.SelectableProduct
+import com.xinto.cashier.domain.model.SelectedProduct
+import com.xinto.cashier.domain.model.price
+import com.xinto.cashier.domain.model.toSelectedProduct
 import com.xinto.cashier.domain.repository.RegistryRepository
 import com.xinto.cashier.ui.screen.ChangeState
 import com.xinto.cashier.ui.screen.EditScreenState
