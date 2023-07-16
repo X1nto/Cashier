@@ -17,6 +17,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.File
+import java.net.UnknownHostException
 
 interface RegistryApi {
 
@@ -40,12 +41,14 @@ class DefaultRegistryApi(context: Context) : RegistryApi {
     override suspend fun getProducts(forceRefresh: Boolean): List<ApiProduct> {
         return withContext(Dispatchers.IO) {
             if (forceRefresh || !file.exists()) {
-                val response = client.get("https://raw.githubusercontent.com/X1nto/Cashier/master/registry.json")
-                if (response.status.isSuccess()) {
-                    file.delete()
-                    file.createNewFile()
-                    file.writeText(response.bodyAsText())
-                }
+                try {
+                    val response = client.get("https://raw.githubusercontent.com/X1nto/Cashier/master/registry.json")
+                    if (response.status.isSuccess()) {
+                        file.delete()
+                        file.createNewFile()
+                        file.writeText(response.bodyAsText())
+                    }
+                } catch (_: UnknownHostException) {}
             }
 
             Json.decodeFromStream(file.inputStream())
