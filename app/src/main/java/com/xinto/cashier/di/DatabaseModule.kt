@@ -1,11 +1,16 @@
 package com.xinto.cashier.di
 
-import com.xinto.cashier.db.store.DefaultProductStore
-import com.xinto.cashier.db.store.ProductStore
-import org.koin.core.module.dsl.singleOf
-import org.koin.dsl.bind
+import androidx.room.Room
+import com.xinto.cashier.db.Database
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 
 val DatabaseModule = module {
-    singleOf(::DefaultProductStore) bind ProductStore::class
+    single {
+        Room.databaseBuilder(androidApplication(), Database::class.java, "db")
+            .build()
+    }
+    single {
+        get<Database>().getProductsDao()
+    }
 }

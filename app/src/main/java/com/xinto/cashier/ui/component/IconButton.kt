@@ -18,15 +18,119 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun IconButton(
+fun SmallIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Transparent,
+    contentColor: Color = Color.Black,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = IconButtonImpl(
+    modifier = modifier.size(48.dp),
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+@Composable
+fun SmallPrimaryIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     color: Color = Color.Blue,
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
+) = SmallIconButton(
+    modifier = modifier,
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+@Composable
+fun SmallDangerIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Red,
+    contentColor: Color = Color.White,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = SmallPrimaryIconButton(
+    modifier = modifier,
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+@Composable
+fun SmallSuccessIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Green,
+    contentColor: Color = Color.White,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = SmallPrimaryIconButton(
+    modifier = modifier,
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+@Composable
+fun SmallWarningIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Yellow,
+    contentColor: Color = Color.Black,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = SmallPrimaryIconButton(
+    modifier = modifier,
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+
+
+@Composable
+fun IconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Transparent,
+    contentColor: Color = Color.Black,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
 ) = IconButtonImpl(
     modifier = modifier.size(width = 72.dp, height = 72.dp),
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+@Composable
+fun PrimaryIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Blue,
+    contentColor: Color = Color.White,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = IconButton(
+    modifier = modifier,
     onClick = onClick,
     color = color,
     contentColor = contentColor,
@@ -42,7 +146,7 @@ fun DangerIconButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = IconButton(
+) = PrimaryIconButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -59,7 +163,7 @@ fun SuccessIconButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = IconButton(
+) = PrimaryIconButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -76,7 +180,7 @@ fun WarningIconButton(
     contentColor: Color = Color.Black,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = IconButton(
+) = PrimaryIconButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -89,12 +193,12 @@ fun WarningIconButton(
 fun LargeIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    color: Color = Color.Blue,
-    contentColor: Color = Color.White,
+    color: Color = Color.Transparent,
+    contentColor: Color = Color.Black,
     enabled: Boolean = true,
     content: @Composable () -> Unit
 ) = IconButtonImpl(
-    modifier = modifier.size(width = 96.dp, height = 96.dp),
+    modifier = modifier.size(96.dp),
     onClick = onClick,
     color = color,
     contentColor = contentColor,
@@ -102,6 +206,22 @@ fun LargeIconButton(
     content = content
 )
 
+@Composable
+fun LargePrimaryIconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Blue,
+    contentColor: Color = Color.White,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = LargeIconButton(
+    modifier = modifier,
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
 
 @Composable
 fun LargeDangerIconButton(
@@ -111,7 +231,7 @@ fun LargeDangerIconButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = LargeIconButton(
+) = LargePrimaryIconButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -128,7 +248,7 @@ fun LargeSuccessIconButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = LargeIconButton(
+) = LargePrimaryIconButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -145,7 +265,7 @@ fun LargeWarningIconButton(
     contentColor: Color = Color.Black,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = LargeIconButton(
+) = LargePrimaryIconButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -158,9 +278,9 @@ fun LargeWarningIconButton(
 private fun IconButtonImpl(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    color: Color = Color.Blue,
-    contentColor: Color = Color.White,
-    enabled: Boolean = true,
+    color: Color,
+    contentColor: Color,
+    enabled: Boolean,
     content: @Composable () -> Unit
 ) {
     val interactionSource = remember { MutableInteractionSource() }

@@ -15,8 +15,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 
-class DailyStatusViewModel(
+class IncomeViewModel(
     private val repository: DailyStatusRepository
 ) : ViewModel() {
 
@@ -31,12 +32,19 @@ class DailyStatusViewModel(
 
     fun select(state: DailyStatusState) {
         this.state = state
+        job.cancel()
         job = when (state) {
             DailyStatusState.CashMeals -> repository.observeCashMeals()
             DailyStatusState.CardMeals -> repository.observeCardMeals()
             DailyStatusState.CashDrinks -> repository.observeCashDrinks()
             DailyStatusState.CardDrinks -> repository.observeCardDrinks()
         }.setup()
+    }
+
+    fun clear() {
+        viewModelScope.launch {
+            repository.clear()
+        }
     }
 
     private fun Flow<List<StatusProduct>>.setup(): Job {

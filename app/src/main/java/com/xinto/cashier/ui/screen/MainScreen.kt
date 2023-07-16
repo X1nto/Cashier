@@ -49,7 +49,7 @@ fun MainScreen() {
                     RegistryScreen(getViewModel())
                 }
                 Screen.Daily -> {
-                    DailyStatusScreen(getViewModel())
+                    IncomeScreen(getViewModel())
                 }
             }
         }

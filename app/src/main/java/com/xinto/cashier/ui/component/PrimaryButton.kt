@@ -23,12 +23,29 @@ import androidx.compose.ui.unit.sp
 fun Button(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    color: Color = Color.Blue,
-    contentColor: Color = Color.White,
+    color: Color = Color.White,
+    contentColor: Color = Color.Black,
     enabled: Boolean = true,
     content: @Composable () -> Unit
 ) = ButtonImpl(
     modifier = modifier.sizeIn(minWidth = 144.dp, minHeight = 72.dp),
+    onClick = onClick,
+    color = color,
+    contentColor = contentColor,
+    enabled = enabled,
+    content = content
+)
+
+@Composable
+fun PrimaryButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Blue,
+    contentColor: Color = Color.White,
+    enabled: Boolean = true,
+    content: @Composable () -> Unit
+) = Button(
+    modifier = modifier,
     onClick = onClick,
     color = color,
     contentColor = contentColor,
@@ -44,7 +61,7 @@ fun DangerButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = Button(
+) = PrimaryButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -61,7 +78,7 @@ fun SuccessButton(
     contentColor: Color = Color.White,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = Button(
+) = PrimaryButton(
     modifier = modifier,
     onClick = onClick,
     color = color,
@@ -78,7 +95,7 @@ fun WarningButton(
     contentColor: Color = Color.Black,
     enabled: Boolean = true,
     content: @Composable () -> Unit
-) = Button(
+) = PrimaryButton(
     modifier = modifier,
     onClick = onClick,
     color = color,

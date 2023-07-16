@@ -3,7 +3,6 @@ package com.xinto.cashier.network.registry
 import android.content.Context
 import com.xinto.cashier.network.registry.model.ApiProduct
 import io.ktor.client.HttpClient
-import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
@@ -14,6 +13,7 @@ import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromStream
 import java.io.File
@@ -36,6 +36,7 @@ class DefaultRegistryApi(context: Context) : RegistryApi {
     }
     private val file = File(context.filesDir, "registry.json")
 
+    @OptIn(ExperimentalSerializationApi::class)
     override suspend fun getProducts(forceRefresh: Boolean): List<ApiProduct> {
         return withContext(Dispatchers.IO) {
             if (forceRefresh || !file.exists()) {
@@ -45,7 +46,6 @@ class DefaultRegistryApi(context: Context) : RegistryApi {
                     file.createNewFile()
                     file.writeText(response.bodyAsText())
                 }
-//                return@withContext response.body()
             }
 
             Json.decodeFromStream(file.inputStream())

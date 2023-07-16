@@ -1,10 +1,5 @@
 package com.xinto.cashier.ui.screen
 
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -58,22 +53,25 @@ import com.xinto.cashier.ui.component.DangerButton
 import com.xinto.cashier.ui.component.DangerIconButton
 import com.xinto.cashier.ui.component.Dialog
 import com.xinto.cashier.ui.component.Icon
-import com.xinto.cashier.ui.component.IconButton
+import com.xinto.cashier.ui.component.PrimaryIconButton
 import com.xinto.cashier.ui.component.LargeDangerIconButton
 import com.xinto.cashier.ui.component.LargeSuccessIconButton
 import com.xinto.cashier.ui.component.ListItem
 import com.xinto.cashier.ui.component.LocalContentColor
+import com.xinto.cashier.ui.component.PaneHeader
 import com.xinto.cashier.ui.component.SuccessButton
 import com.xinto.cashier.ui.component.Text
-import com.xinto.cashier.ui.component.ThreePaneLayout
+import com.xinto.cashier.ui.component.PaneLayout
+import com.xinto.cashier.ui.component.SmallIconButton
 import com.xinto.cashier.ui.component.dividedItems
 import com.xinto.cashier.ui.viewmodel.ProductViewModel
 
+@Immutable
 sealed interface EditScreenState {
-    @Stable
+    @Immutable
     object Unselected : EditScreenState
 
-    @Stable
+    @Immutable
     data class Selected(val selectedProduct: SelectedProduct) : EditScreenState
 }
 
@@ -94,68 +92,51 @@ sealed interface ProductsState {
 fun RegistryScreen(
     viewModel: ProductViewModel,
 ) {
-    ThreePaneLayout(
-        paneOne = {
-            Column {
-                Column {
-                    Row(
-                        modifier = Modifier
-                            .padding(12.dp)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text("პროდუქტები", style = TextStyle(fontSize = 22.sp, fontWeight = FontWeight.Medium))
-                        Icon(
-                            modifier = Modifier
-                                .size(44.dp)
-                                .clickable(onClick = viewModel::refresh),
-                            painter = painterResource(id = R.drawable.ic_refresh)
-                        )
+    PaneLayout(
+        header = {
+            PaneHeader(
+                action = {
+                    SmallIconButton(onClick = viewModel::refresh) {
+                        Icon(painterResource(id = R.drawable.ic_refresh))
                     }
-                    Box(
-                        Modifier
-                            .height(1.dp)
-                            .background(Color.LightGray)
-                            .fillMaxWidth())
                 }
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
-                    propagateMinConstraints = false,
-                    contentAlignment = Alignment.Center
-                ) {
-                    when (val state = viewModel.state) {
-                        is ProductsState.Loading -> {
-                            Text("მიმდინარეობს ჩატვირთვა...", style = TextStyle(fontSize = 28.sp))
-                        }
-                        is ProductsState.Error -> {
-                            Text("შეცდომა ჩატვირთვისას!", style = TextStyle(fontSize = 28.sp))
-                        }
-                        is ProductsState.Success -> {
-                            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                                dividedItems(state.products) { product ->
-                                    ListItem(
-                                        title = { Text(product.name) },
-                                        subtitle = {
-                                            Text("ფასი: ${product.price}")
-                                        },
-                                        trailing = {
-                                            IconButton(onClick = { viewModel.selectProduct(product) }) {
-                                                Icon(painterResource(R.drawable.ic_add))
-                                            }
+            ) {
+                Text("პროდუქტები")
+            }
+        },
+        main = {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                when (val state = viewModel.state) {
+                    is ProductsState.Loading -> {
+                        Text("მიმდინარეობს ჩატვირთვა...", style = TextStyle(fontSize = 28.sp))
+                    }
+                    is ProductsState.Error -> {
+                        Text("შეცდომა ჩატვირთვისას!", style = TextStyle(fontSize = 28.sp))
+                    }
+                    is ProductsState.Success -> {
+                        LazyColumn(modifier = Modifier.fillMaxSize()) {
+                            dividedItems(state.products) { product ->
+                                ListItem(
+                                    title = { Text(product.name) },
+                                    subtitle = {
+                                        Text("ფასი: ${product.price}")
+                                    },
+                                    trailing = {
+                                        PrimaryIconButton(onClick = { viewModel.selectProduct(product) }) {
+                                            Icon(painterResource(R.drawable.ic_add))
                                         }
-                                    )
-                                }
+                                    }
+                                )
                             }
                         }
                     }
                 }
-
             }
         },
-        paneTwo = {
+        details = {
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
@@ -182,7 +163,7 @@ fun RegistryScreen(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                IconButton(onClick = { viewModel.enterEditScreen(product.name) }) {
+                                PrimaryIconButton(onClick = { viewModel.enterEditScreen(product.name) }) {
                                     Icon(painterResource(R.drawable.ic_edit))
                                 }
                                 DangerIconButton(onClick = { viewModel.removeProduct(product.name) }) {
@@ -194,7 +175,7 @@ fun RegistryScreen(
                 }
             }
         },
-        paneThree = {
+        footer = {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

@@ -4,7 +4,7 @@ import android.util.Log
 import com.xinto.cashier.db.entity.EntityPaymentType
 import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityProductType
-import com.xinto.cashier.db.store.ProductStore
+import com.xinto.cashier.db.store.ProductsDao
 import com.xinto.cashier.domain.model.*
 import com.xinto.cashier.domain.model.Result
 import com.xinto.cashier.network.registry.RegistryApi
@@ -13,7 +13,7 @@ import com.xinto.cashier.network.registry.model.ApiProductType
 
 class RegistryRepository(
     private val registryApi: RegistryApi,
-    private val productStore: ProductStore
+    private val productsDao: ProductsDao
 ) {
 
     suspend fun getProducts(forceRefresh: Boolean): Result<List<SelectableProduct>> {
@@ -53,7 +53,7 @@ class RegistryRepository(
         selectedProducts: List<SelectedProduct>,
         entityPaymentType: EntityPaymentType
     ) {
-        productStore.putDailyProducts(
+        productsDao.putDailyProducts(
             selectedProducts.map {
                 it.toEntityProduct(entityPaymentType)
             }

@@ -8,18 +8,22 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.xinto.cashier.R
 import com.xinto.cashier.domain.model.BottleStatusProduct
 import com.xinto.cashier.domain.model.MealStatusProduct
 import com.xinto.cashier.ui.component.*
-import com.xinto.cashier.ui.viewmodel.DailyStatusViewModel
+import com.xinto.cashier.ui.viewmodel.IncomeViewModel
 
 enum class DailyStatusState(val title: String) {
     CashMeals("საჭმელი ქეშით"),
@@ -29,9 +33,32 @@ enum class DailyStatusState(val title: String) {
 }
 
 @Composable
-fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
-    ThreePaneLayout(
-        paneOne = {
+fun IncomeScreen(viewModel: IncomeViewModel) {
+    var showDialog by remember { mutableStateOf(false) }
+    if (showDialog) {
+        ClearDialog(
+            onDismissRequest = { showDialog = false },
+            onConfirm = {
+                viewModel.clear()
+                showDialog = false
+            }
+        )
+    }
+    PaneLayout(
+        header = {
+            PaneHeader(
+                action = {
+                    SmallIconButton(onClick = {
+                        showDialog = true
+                    }) {
+                        Icon(painterResource(id = R.drawable.ic_delete))
+                    }
+                }
+            ) {
+                Text("შემოსავალი")
+            }
+        },
+        main = {
             Column(modifier = Modifier.fillMaxSize()) {
                 DailyStatusState.values().forEachIndexed { index, state ->
                     Column(modifier = Modifier.weight(1f)) {
@@ -74,7 +101,7 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
                 }
             }
         },
-        paneTwo = {
+        details = {
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 dividedItems(items = viewModel.items) { item ->
                     ListItem(
@@ -95,7 +122,7 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
                 }
             }
         },
-        paneThree = {
+        footer = {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -106,4 +133,38 @@ fun DailyStatusScreen(viewModel: DailyStatusViewModel) {
             }
         }
     )
+}
+
+@Composable
+private fun ClearDialog(
+    onDismissRequest: () -> Unit,
+    onConfirm: () -> Unit,
+) {
+    Dialog(
+        onDismissRequest = onDismissRequest,
+        title = {
+            Text("ნამდვილად გსურთ მონაცემთა ბაზის გასუფთავება?")
+        },
+        subtitle = {
+            Text("გასუფთავების შემდეგ ვეღარ შეძლებთ მონაცემების დაბრუნებას")
+        },
+        confirmButton = {
+            DangerButton(
+                modifier = Modifier.weight(1f),
+                onClick = onConfirm
+            ) {
+                Text("წაშლა")
+            }
+        },
+        dismissButton = {
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = onDismissRequest
+            ) {
+                Text("გაუქმება")
+            }
+        }
+    ) {
+
+    }
 }

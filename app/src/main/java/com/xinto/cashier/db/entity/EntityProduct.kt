@@ -1,5 +1,9 @@
 package com.xinto.cashier.db.entity
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
 enum class EntityPaymentType {
     Card, Cash
 }
@@ -8,18 +12,24 @@ enum class EntityProductType {
     Meal, Bottle, Measured
 }
 
+@Entity(tableName = "products")
 data class EntityProduct(
+    @PrimaryKey
+    @ColumnInfo(name = "id")
     val id: String,
-    val name: String,
-    val price: Double,
-    val quantity: Int,
-    val entityPaymentType: EntityPaymentType,
-    val entityProductType: EntityProductType
-) {
-    val isBottle = entityProductType == EntityProductType.Bottle
-    val isMeal = entityProductType == EntityProductType.Meal
-    val isMeasured = entityProductType == EntityProductType.Measured
 
-    val isPaidCard = entityPaymentType == EntityPaymentType.Card
-    val isPaidCash = entityPaymentType == EntityPaymentType.Cash
-}
+    @ColumnInfo(name = "name")
+    val name: String,
+
+    @ColumnInfo(name = "price")
+    val price: Double,
+
+    @ColumnInfo(name = "quantity")
+    val quantity: Int,
+
+    @ColumnInfo(name = "payment")
+    val entityPaymentType: EntityPaymentType,
+
+    @ColumnInfo(name = "type")
+    val entityProductType: EntityProductType
+)

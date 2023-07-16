@@ -1,9 +1,9 @@
 package com.xinto.cashier.domain.repository
 
+import com.xinto.cashier.db.entity.EntityPaymentType
 import com.xinto.cashier.db.entity.EntityProduct
 import com.xinto.cashier.db.entity.EntityProductType
-import com.xinto.cashier.db.store.DefaultProductStore
-import com.xinto.cashier.db.store.ProductStore
+import com.xinto.cashier.db.store.ProductsDao
 import com.xinto.cashier.domain.model.BottleStatusProduct
 import com.xinto.cashier.domain.model.MealStatusProduct
 import com.xinto.cashier.domain.model.StatusProduct
@@ -12,29 +12,41 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class DailyStatusRepository(
-    private val productStore: ProductStore
+    private val productsDao: ProductsDao
 ) {
 
     fun observeCardDrinks(): Flow<List<StatusProduct>> {
-        return observeProduct { it.isBottle && it.isPaidCard }
+        return observeProduct {
+            it.entityProductType == EntityProductType.Bottle && it.entityPaymentType == EntityPaymentType.Card
+        }
     }
 
     fun observeCashDrinks(): Flow<List<StatusProduct>> {
-        return observeProduct { it.isBottle && it.isPaidCash }
+        return observeProduct {
+            it.entityProductType == EntityProductType.Bottle && it.entityPaymentType == EntityPaymentType.Cash
+        }
     }
 
     fun observeCardMeals(): Flow<List<StatusProduct>> {
-        return observeProduct { it.isMeal && it.isPaidCard }
+        return observeProduct {
+            it.entityProductType == EntityProductType.Meal && it.entityPaymentType == EntityPaymentType.Card
+        }
     }
 
     fun observeCashMeals(): Flow<List<StatusProduct>> {
-        return observeProduct { it.isMeal && it.isPaidCash }
+        return observeProduct {
+            it.entityProductType == EntityProductType.Meal && it.entityPaymentType == EntityPaymentType.Cash
+        }
+    }
+
+    suspend fun clear() {
+        productsDao.clear()
     }
 
     private inline fun observeProduct(
         crossinline filter: (EntityProduct) -> Boolean
     ): Flow<List<StatusProduct>> {
-        return productStore.observeDailyProducts().map { products ->
+        return productsDao.observeDailyProducts().map { products ->
             products.filter(filter).map {
                 it.toStatusProduct()
             }

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -30,14 +31,16 @@ fun Dialog(
         ) {
             Column(
                 modifier = Modifier
-                    .padding(12.dp)
+                    .padding(16.dp)
                     .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 CompositionLocalProvider(
                     LocalTextStyle provides TextStyle(
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Medium
+                        fontSize = 28.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        textAlign = TextAlign.Center
                     )
                 ) {
                     title()
@@ -45,7 +48,8 @@ fun Dialog(
                 CompositionLocalProvider(
                     LocalTextStyle provides TextStyle(
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.Center
                     ),
                     LocalContentColor provides LocalContentColor.current.copy(alpha = 0.8f)
                 ) {
@@ -70,12 +74,7 @@ fun Dialog(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 dismissButton()
-                Box(
-                    Modifier
-                        .fillMaxHeight()
-                        .width(1.dp)
-                        .background(Color.LightGray)
-                )
+                VerticalDivider()
                 confirmButton()
             }
         }
