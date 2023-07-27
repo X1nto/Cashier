@@ -49,5 +49,6 @@
   {"name": "ცივი ყავა", "price": "3.0", "type": "bottle"},
   {"name": "ცივი ყავა ნაყინით", "price": "4.0", "type": "bottle"},
   {"name": "მოჰიტო", "price": "4.0", "type": "bottle"},
-  {"name": "მოჰიტო ალკოჰოლით", "price": "5.0", "type": "bottle"}
+  {"name": "მოჰიტო ალკოჰოლით", "price": "5.0", "type": "bottle"},
+  {"name": "ნატურალური წვენი", "price": "2.5", "type": "bottle"}
 ]
