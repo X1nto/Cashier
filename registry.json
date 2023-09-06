@@ -10,6 +10,7 @@
   {"name": "ლობიანი სვანური", "price": "3.50", "type": "meal"},
   {"name": "კუბდარი", "price": "4.50", "type": "meal"},
   {"name": "კუბდარი ორაგულის", "price": "7.00", "type": "meal"},
+  {"name": "ოჯახური", "price": "3.50", "type": "meal"},
   {"name": "ხაბიზგინა", "price": "2.50", "type": "meal"},
   {"name": "ფიჩინი ხორცით", "price": "7.00", "type": "meal"},
   {"name": "ფიჩინი სოკოთი", "price": "5.00", "type": "meal"},
