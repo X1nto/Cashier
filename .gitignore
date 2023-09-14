@@ -11,6 +11,8 @@
 /build
 /captures
 /app/release
+/app/legacy
+/app/modern
 .externalNativeBuild
 .cxx
 local.properties

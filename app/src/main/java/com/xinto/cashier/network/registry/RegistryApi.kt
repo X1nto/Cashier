@@ -1,6 +1,7 @@
 package com.xinto.cashier.network.registry
 
 import android.content.Context
+import com.xinto.cashier.network.TlsCompatSocketFactory
 import com.xinto.cashier.network.registry.model.ApiProduct
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
@@ -28,6 +29,11 @@ interface RegistryApi {
 class DefaultRegistryApi(context: Context) : RegistryApi {
 
     private val client = HttpClient(Android) {
+        engine {
+            sslManager = {
+                it.sslSocketFactory = TlsCompatSocketFactory()
+            }
+        }
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })
         }

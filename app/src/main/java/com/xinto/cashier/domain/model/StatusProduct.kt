@@ -1,13 +1,11 @@
 package com.xinto.cashier.domain.model
 
-import androidx.compose.runtime.Stable
-
 fun Iterable<StatusProduct>.price() = priceOf { it.price }
 
-@Stable
 sealed interface StatusProduct {
     val name: String
     val price: Price
+    val countAsString: String
 }
 
 data class MealStatusProduct(
@@ -16,6 +14,7 @@ data class MealStatusProduct(
     val meals: Int,
 ) : StatusProduct {
     override val price = mealPrice * meals
+    override val countAsString: String = meals.toString()
 }
 
 data class BottleStatusProduct(
@@ -24,4 +23,5 @@ data class BottleStatusProduct(
     val bottles: Int,
 ) : StatusProduct {
     override val price = bottlePrice * bottles
+    override val countAsString: String = bottles.toString()
 }

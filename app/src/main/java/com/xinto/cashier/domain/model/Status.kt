@@ -4,5 +4,5 @@ sealed interface Result<out T> {
     @JvmInline
     value class Success<out T>(val data: T) : Result<T>
 
-    object Error : Result<Nothing>
+    data object Error : Result<Nothing>
 }

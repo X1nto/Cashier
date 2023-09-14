@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="Theme.Cashier" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
-        <item name="android:immersive">true</item>
+    <style name="Theme.Cashier" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

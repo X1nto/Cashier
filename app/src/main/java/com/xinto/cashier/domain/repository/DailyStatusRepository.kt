@@ -6,8 +6,11 @@ import com.xinto.cashier.db.entity.EntityProductType
 import com.xinto.cashier.db.store.ProductsDao
 import com.xinto.cashier.domain.model.BottleStatusProduct
 import com.xinto.cashier.domain.model.MealStatusProduct
+import com.xinto.cashier.domain.model.Price
+import com.xinto.cashier.domain.model.StatusMode
 import com.xinto.cashier.domain.model.StatusProduct
-import com.xinto.cashier.domain.model.toPrice
+import com.xinto.cashier.domain.model.price
+import com.xinto.cashier.domain.model.asPrice
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -15,27 +18,26 @@ class DailyStatusRepository(
     private val productsDao: ProductsDao
 ) {
 
-    fun observeCardDrinks(): Flow<List<StatusProduct>> {
-        return observeProduct {
-            it.entityProductType == EntityProductType.Bottle && it.entityPaymentType == EntityPaymentType.Card
+    fun observeProducts(statusMode: StatusMode): Flow<List<StatusProduct>> {
+        return productsDao.observeDailyProducts().map { products ->
+            products.filter {
+                when (statusMode) {
+                    StatusMode.CardMeal -> it.entityProductType == EntityProductType.Meal && it.entityPaymentType == EntityPaymentType.Card
+                    StatusMode.CashMeal -> it.entityProductType == EntityProductType.Meal && it.entityPaymentType == EntityPaymentType.Cash
+                    StatusMode.CardDrink -> it.entityProductType == EntityProductType.Bottle && it.entityPaymentType == EntityPaymentType.Card
+                    StatusMode.CashDrink -> it.entityProductType == EntityProductType.Bottle && it.entityPaymentType == EntityPaymentType.Cash
+                }
+            }.map {
+                it.toStatusProduct()
+            }
         }
     }
 
-    fun observeCashDrinks(): Flow<List<StatusProduct>> {
-        return observeProduct {
-            it.entityProductType == EntityProductType.Bottle && it.entityPaymentType == EntityPaymentType.Cash
-        }
-    }
-
-    fun observeCardMeals(): Flow<List<StatusProduct>> {
-        return observeProduct {
-            it.entityProductType == EntityProductType.Meal && it.entityPaymentType == EntityPaymentType.Card
-        }
-    }
-
-    fun observeCashMeals(): Flow<List<StatusProduct>> {
-        return observeProduct {
-            it.entityProductType == EntityProductType.Meal && it.entityPaymentType == EntityPaymentType.Cash
+    fun observeProducts(): Flow<List<StatusProduct>> {
+        return productsDao.observeDailyProducts().map { products ->
+            products.map {
+                it.toStatusProduct()
+            }
         }
     }
 
@@ -43,22 +45,12 @@ class DailyStatusRepository(
         productsDao.clear()
     }
 
-    private inline fun observeProduct(
-        crossinline filter: (EntityProduct) -> Boolean
-    ): Flow<List<StatusProduct>> {
-        return productsDao.observeDailyProducts().map { products ->
-            products.filter(filter).map {
-                it.toStatusProduct()
-            }
-        }
-    }
-
     private fun EntityProduct.toStatusProduct(): StatusProduct {
         return when (entityProductType) {
             EntityProductType.Meal -> {
                 MealStatusProduct(
                     name = name,
-                    mealPrice = price.toPrice(),
+                    mealPrice = price.asPrice(),
                     meals = quantity
                 )
             }
@@ -66,7 +58,7 @@ class DailyStatusRepository(
             EntityProductType.Bottle -> {
                 BottleStatusProduct(
                     name = name,
-                    bottlePrice = price.toPrice(),
+                    bottlePrice = price.asPrice(),
                     bottles = quantity
                 )
             }
@@ -74,5 +66,4 @@ class DailyStatusRepository(
             else -> throw NotImplementedError()
         }
     }
-
 }

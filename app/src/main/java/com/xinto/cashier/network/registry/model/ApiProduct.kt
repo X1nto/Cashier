@@ -1,7 +1,5 @@
 package com.xinto.cashier.network.registry.model
 
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.toLowerCase
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -33,7 +31,7 @@ enum class ApiProductType {
         }
 
         override fun serialize(encoder: Encoder, value: ApiProductType) {
-            encoder.encodeString(value.name.toLowerCase(Locale.current))
+            encoder.encodeString(value.name.lowercase())
         }
     }
 }

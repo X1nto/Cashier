@@ -1,13 +1,10 @@
 package com.xinto.cashier.domain.model
 
-import androidx.compose.runtime.Stable
-
 enum class SelectableProductType {
     Meal,
     Bottle
 }
 
-@Stable
 data class SelectableProduct(
     val name: String,
     val price: Price,

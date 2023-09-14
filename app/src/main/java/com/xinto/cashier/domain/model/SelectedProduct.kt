@@ -1,10 +1,80 @@
 package com.xinto.cashier.domain.model
 
-import androidx.compose.runtime.Stable
+import android.os.Parcel
+import android.os.Parcelable
 
 fun Iterable<SelectedProduct>.price() = priceOf { it.price }
 
-@Stable
+@JvmInline
+value class ParcelableSelectedProduct(
+    val product: SelectedProduct
+) : Parcelable {
+
+    enum class Type {
+        Bottle, Food, Measured
+    }
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        when (product) {
+            is MealSelectedProduct -> {
+                dest.writeSerializable(Type.Food)
+                dest.writeDouble(product.mealPrice.value)
+                dest.writeInt(product.meals)
+                dest.writeString(product.name)
+            }
+            is BottleSelectedProduct -> {
+                dest.writeSerializable(Type.Bottle)
+                dest.writeDouble(product.bottlePrice.value)
+                dest.writeInt(product.bottles)
+                dest.writeString(product.name)
+            }
+            is MeasuredSelectedProduct -> {
+                dest.writeSerializable(Type.Measured)
+                dest.writeDouble(product.pricePerKilo.value)
+                dest.writeDouble(product.kilos)
+                dest.writeString(product.name)
+            }
+        }
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<ParcelableSelectedProduct> {
+        override fun createFromParcel(parcel: Parcel): ParcelableSelectedProduct {
+            val selectedProduct = when (Type.valueOf(parcel.readString()!!)) {
+                Type.Measured -> {
+                    MeasuredSelectedProduct(
+                        pricePerKilo = parcel.readDouble().asPrice(),
+                        kilos = parcel.readDouble(),
+                        name = parcel.readString()!!
+                    )
+                }
+                Type.Food -> {
+                    MealSelectedProduct(
+                        mealPrice = parcel.readDouble().asPrice(),
+                        meals = parcel.readInt(),
+                        name = parcel.readString()!!
+                    )
+                }
+                Type.Bottle -> {
+                    BottleSelectedProduct(
+                        bottlePrice = parcel.readDouble().asPrice(),
+                        bottles = parcel.readInt(),
+                        name = parcel.readString()!!
+                    )
+                }
+            }
+            return ParcelableSelectedProduct(selectedProduct)
+        }
+
+        override fun newArray(size: Int): Array<ParcelableSelectedProduct?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
 sealed interface SelectedProduct {
 
     val price: Price
@@ -19,7 +89,6 @@ sealed interface SelectedProduct {
     fun decreased(): SelectedProduct?
 }
 
-@Stable
 data class MealSelectedProduct(
     val mealPrice: Price,
     val meals: Int,
@@ -49,7 +118,6 @@ data class MealSelectedProduct(
     }
 }
 
-@Stable
 data class BottleSelectedProduct(
     val bottlePrice: Price,
     val bottles: Int,
@@ -79,7 +147,6 @@ data class BottleSelectedProduct(
     }
 }
 
-@Stable
 data class MeasuredSelectedProduct(
     val pricePerKilo: Price,
     val kilos: Double,

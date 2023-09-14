@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/income_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/income_result"
+        app:layout_constraintHorizontal_weight="1"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/income_title"
+            android:layout_weight="1"
+            style="@style/Text.Title"/>
+
+        <com.xinto.cashier.ui.view.IconButton
+            android:id="@+id/income_clear"
+            style="@style/IconButton.Small"
+            app:srcCompat="@drawable/ic_delete" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/income_title_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/income_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/income_result"/>
+
+    <RadioGroup
+        android:id="@+id/income_modes"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:showDividers="middle"
+        android:divider="@drawable/divider"
+        app:layout_constraintTop_toBottomOf="@id/income_title_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/income_divider"
+        app:layout_constraintBottom_toTopOf="@id/income_full_result_divider"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintVertical_weight="1" />
+
+    <View
+        android:id="@+id/income_full_result_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/income_modes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/income_divider"
+        app:layout_constraintBottom_toTopOf="@id/income_full_income"/>
+
+    <TextView
+        android:id="@+id/income_full_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text.Title"
+        tools:text="შემოსავალი: 154.60GEL"
+        app:layout_constraintEnd_toStartOf="@id/income_divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/income_full_result_divider"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <View
+        android:id="@+id/income_divider"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        android:background="@color/lightgray"
+        app:layout_constraintVertical_weight="1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/income_modes"
+        app:layout_constraintEnd_toStartOf="@id/income_result"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/income_result"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/income_divider"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/income_mode_result_divider"
+        app:layout_constraintHorizontal_weight="1.2"
+        app:layout_constraintVertical_weight="1"
+        tools:listitem="@layout/widget_product_income"
+        tools:itemCount="5"/>
+
+    <View
+        android:id="@+id/income_mode_result_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/lightgray"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintTop_toBottomOf="@id/income_result"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/income_modes"/>
+
+    <TextView
+        android:id="@+id/income_mode_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text.Title"
+        tools:text="შემოსავალი: 154.60GEL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/income_mode_result_divider"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

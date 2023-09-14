@@ -1,8 +1,9 @@
 package com.xinto.cashier.domain.model
 
-import androidx.compose.runtime.Immutable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-fun Double.toPrice() = Price(this)
+fun Double.asPrice() = Price(this)
 
 fun <T> Iterable<T>.priceOf(selector: (T) -> Price): Price {
     var price = Price.Zero
@@ -13,30 +14,42 @@ fun <T> Iterable<T>.priceOf(selector: (T) -> Price): Price {
 }
 
 @JvmInline
-@Immutable
-value class Price(val price: Double) {
+@Parcelize
+value class Price(val value: Double) : Parcelable, Comparable<Price> {
+
+    override fun compareTo(other: Price): Int {
+        return this.value.compareTo(other.value)
+    }
 
     companion object {
         val Zero = Price(0.0)
     }
 
     override fun toString(): String {
-        return String.format("%.2fლ", price)
+        return String.format("%.2fლ", value)
     }
 
     operator fun plus(other: Price): Price {
-        return Price(this.price + other.price)
+        return Price(this.value + other.value)
+    }
+
+    operator fun minus(other: Price): Price {
+        return Price(this.value - other.value)
+    }
+
+    operator fun minus(other: Double): Price {
+        return Price(this.value - other)
     }
 
     operator fun times(other: Price): Price {
-        return Price(this.price * other.price)
+        return Price(this.value * other.value)
     }
 
     operator fun times(other: Double): Price {
-        return Price(this.price * other)
+        return Price(this.value * other)
     }
 
     operator fun times(other: Int): Price {
-        return Price(this.price * other)
+        return Price(this.value * other)
     }
 }
