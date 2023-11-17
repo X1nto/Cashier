@@ -37,7 +37,10 @@
   {"name": "განსხვავებული", "price": "0.50", "type": "meal"},
   {"name": "წყალი ბაკურიანი", "price": "0.80", "type": "bottle"},
   {"name": "წყალი მთის", "price": "0.60", "type": "bottle"},
+  {"name": "წყალი ჯეონატურა", "price": "0.70", "type": "bottle"},
+  {"name": "წყალი ბახმარო", "price": "0.90", "type": "bottle"},
   {"name": "ბორჯომი", "price": "2.00", "type": "bottle"},
+  {"name": "ნაბეღლავი", "price": "2.00", "type": "bottle"},
   {"name": "ლიკანი", "price": "1.50", "type": "bottle"},
   {"name": "ლიკანი ქილის", "price": "2.00", "type": "bottle"},
   {"name": "ყავა", "price": "1.00", "type": "bottle"},
@@ -51,8 +54,9 @@
   {"name": "ენერგეტიკული", "price": "2.00", "type": "bottle"},
   {"name": "ცივი ყავა", "price": "3.00", "type": "bottle"},
   {"name": "ცივი ყავა ნაყინით", "price": "4.00", "type": "bottle"},
-  {"name": "მოჰიტო", "price": "4.00", "type": "bottle"},
+  {"name": "მოჰიტო ბუღა", "price": "2.00", "type": "bottle"},
   {"name": "მოჰიტო ალკოჰოლით", "price": "5.00", "type": "bottle"},
-  {"name": "ნატურალური წვენი", "price": "2.50", "type": "bottle"},
+  {"name": "წვენი ნატურალური", "price": "2.50", "type": "bottle"},
+  {"name": "წვენი ნატურალური პატარა", "price": "1.50", "type": "bottle"},
   {"name": "კომპოტი", "price": "2.00", "type": "bottle"}
 ]
