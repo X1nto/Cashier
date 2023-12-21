@@ -25,6 +25,7 @@
   {"name": "ჰოთდოგი", "price": "2.00", "type": "meal"},
   {"name": "პიცა", "price": "2.50", "type": "meal"},
   {"name": "ჰამბურგერი", "price": "3.50", "type": "meal"},
+  {"name": "ქაბაბი", "price": "3.00", "type": "meal"},
   {"name": "ნამცხვარი ვაშლის დარიჩინით", "price": "2.50", "type": "meal"},
   {"name": "ნამცხვარი ფორთოხლის", "price": "2.00", "type": "meal"},
   {"name": "მაფინი", "price": "1.50", "type": "meal"},
