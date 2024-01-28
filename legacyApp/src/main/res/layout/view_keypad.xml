@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:columnCount="4"
+    android:background="@color/lightgray"
+    tools:context=".ui.view.Keypad"
+    android:padding="0.5dp"
+    android:id="@+id/keypad">
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="1"
+        style="@style/IconButton"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="2"
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="3"
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="4"
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="5"
+        style="@style/IconButton"
+        android:layout_marginTop="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="6"
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginTop="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="7"
+        style="@style/IconButton"
+        android:layout_marginTop="0.5dp"
+        android:layout_marginStart="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="8"
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginTop="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="9"
+        style="@style/IconButton"
+        android:layout_marginTop="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:text="0"
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginTop="0.5dp"/>
+    <dev.xinto.cashier.legacy.ui.view.Button
+        android:id="@+id/keypad_decimal"
+        android:text="."
+        style="@style/IconButton"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginTop="0.5dp"/>
+
+    <dev.xinto.cashier.legacy.ui.view.IconButton
+        android:id="@+id/keypad_backspace"
+        style="@style/IconButton"
+        app:srcCompat="@drawable/ic_backspace"
+        android:layout_marginStart="0.5dp"
+        android:layout_marginTop="0.5dp"/>
+
+</GridLayout>
