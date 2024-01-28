@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import dev.xinto.cashier.legacy.R
-import dev.xinto.cashier.common.R as CR
 import dev.xinto.cashier.common.domain.model.SelectedProduct
+import dev.xinto.cashier.legacy.R
 import dev.xinto.cashier.legacy.ui.view.IconButton
+import dev.xinto.cashier.common.R as CR
 
 class RegistrySelectedProductsAdapter(
     private inline val onEditClick: (SelectedProduct) -> Unit,
@@ -26,7 +26,8 @@ class RegistrySelectedProductsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedProductsViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.widget_product_selected, parent, false)
+        val layout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.widget_product_selected, parent, false)
         return SelectedProductsViewHolder(layout)
     }
 

@@ -10,7 +10,7 @@ class Tab @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = R.style.Tab
-): AppCompatImageButton(context, attributeSet, defStyleAttr) {
+) : AppCompatImageButton(context, attributeSet, defStyleAttr) {
 
     override fun setSelected(selected: Boolean) {
         super.setSelected(selected)
@@ -24,6 +24,7 @@ class Tab @JvmOverloads constructor(
                 alpha = 0.7f
                 return true
             }
+
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 alpha = if (isSelected) 1f else 0.5f
                 return true

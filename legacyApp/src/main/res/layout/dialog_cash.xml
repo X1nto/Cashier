@@ -1,60 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="center"
+        android:orientation="vertical"
         android:paddingStart="64dp"
         android:paddingEnd="64dp">
 
         <TextView
             android:id="@+id/cash_title"
+            style="@style/Text.Dialog.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text.Dialog.Title"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
-            android:text="@string/cash_title"/>
+            android:text="@string/cash_title" />
 
         <TextView
             android:id="@+id/cash_subtitle"
+            style="@style/Text.Dialog.Subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Text.Dialog.Subtitle"
-            android:text="@string/cash_subtitle"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:layout_gravity="center"/>
+            android:text="@string/cash_subtitle" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/cash_display"
+            style="@style/Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            style="@style/Display"/>
+            android:layout_marginTop="16dp" />
 
         <dev.xinto.cashier.legacy.ui.view.Keypad
             android:id="@+id/cash_keypad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            app:type="decimal"/>
+            app:type="decimal" />
 
         <TextView
             android:id="@+id/cash_change"
+            style="@style/Text.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginTop="16dp"
-            tools:text="ფასი: 4.50ლ"
-            style="@style/Text.Title"/>
+            tools:text="ფასი: 4.50ლ" />
 
     </LinearLayout>
 
@@ -62,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="16dp"
-        android:background="@color/lightgray"/>
+        android:background="@color/lightgray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,24 +70,24 @@
 
         <dev.xinto.cashier.legacy.ui.view.Button
             android:id="@+id/cash_action_cancel"
+            style="@style/Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/Button"
-            android:text="@string/dialog_action_cancel"/>
+            android:text="@string/dialog_action_cancel" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@color/lightgray"/>
+            android:background="@color/lightgray" />
 
         <dev.xinto.cashier.legacy.ui.view.Button
             android:id="@+id/cash_action_pay"
+            style="@style/Button.Success"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/Button.Success"
-            android:text="@string/cash_action_pay"/>
+            android:text="@string/cash_action_pay" />
     </LinearLayout>
 
 

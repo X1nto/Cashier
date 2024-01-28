@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import dev.xinto.cashier.legacy.R
-import dev.xinto.cashier.common.R as CR
 import dev.xinto.cashier.common.domain.model.SelectableProduct
+import dev.xinto.cashier.legacy.R
 import dev.xinto.cashier.legacy.ui.view.IconButton
+import dev.xinto.cashier.common.R as CR
 
 class RegistrySelectableProductsAdapter(
     private inline val onClick: (SelectableProduct) -> Unit
@@ -23,7 +23,8 @@ class RegistrySelectableProductsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.widget_product_selectable, parent, false)
+        val layout = LayoutInflater.from(parent.context)
+            .inflate(R.layout.widget_product_selectable, parent, false)
         return ProductViewHolder(layout)
     }
 
@@ -38,7 +39,10 @@ class RegistrySelectableProductsAdapter(
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = items[position]
         holder.productName.text = product.name
-        holder.productPrice.text = holder.productName.context.getString(CR.string.product_price_single, product.price.value)
+        holder.productPrice.text = holder.productName.context.getString(
+            CR.string.product_price_single,
+            product.price.value
+        )
         holder.addButton.setOnClickListener {
             onClick(product)
         }

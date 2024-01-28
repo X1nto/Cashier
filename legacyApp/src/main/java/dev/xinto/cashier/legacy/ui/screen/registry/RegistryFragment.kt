@@ -4,21 +4,23 @@ import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dev.xinto.cashier.legacy.R
-import dev.xinto.cashier.common.R as CR
-import dev.xinto.cashier.common.domain.model.ParcelableSelectedProduct
 import dev.xinto.cashier.common.ui.screen.registry.RegistryState
 import dev.xinto.cashier.common.ui.screen.registry.RegistryViewModel
+import dev.xinto.cashier.legacy.R
 import dev.xinto.cashier.legacy.ui.core.CustomDividerItemDecoration
 import dev.xinto.cashier.legacy.ui.view.IconButton
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import dev.xinto.cashier.common.R as CR
 
 class RegistryFragment : Fragment(R.layout.layout_registry) {
 
@@ -66,7 +68,12 @@ class RegistryFragment : Fragment(R.layout.layout_registry) {
             .apply {
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 adapter = registrySelectableProductsAdapter
-                addItemDecoration(CustomDividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+                addItemDecoration(
+                    CustomDividerItemDecoration(
+                        context,
+                        DividerItemDecoration.VERTICAL
+                    )
+                )
             }
         val registryProductsLoading = view.findViewById<FrameLayout>(R.id.registry_products_loading)
         val registryProductsError = view.findViewById<FrameLayout>(R.id.registry_products_error)
@@ -77,45 +84,35 @@ class RegistryFragment : Fragment(R.layout.layout_registry) {
             addItemDecoration(CustomDividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.state.onEach { state ->
-            when (state) {
-                is RegistryState.Loading -> {
-                    registryProductsLoading.visibility = View.VISIBLE
-                    registryProductsSuccess.visibility = View.GONE
-                    registryProductsError.visibility = View.GONE
-                }
-                is RegistryState.Success -> {
+        viewModel.state
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach { state ->
+                registryProductsLoading.isVisible = state is RegistryState.Loading
+                registryProductsSuccess.isVisible = state is RegistryState.Success
+                registryProductsError.isVisible = state is RegistryState.Error
+
+                if (state is RegistryState.Success) {
                     registrySelectableProductsAdapter.setProducts(state.products)
-                    registryProductsSuccess.visibility = View.VISIBLE
-                    registryProductsLoading.visibility = View.GONE
-                    registryProductsError.visibility = View.GONE
                 }
-                is RegistryState.Error -> {
-                    registryProductsError.visibility = View.VISIBLE
-                    registryProductsSuccess.visibility = View.GONE
-                    registryProductsLoading.visibility = View.GONE
-                }
-            }
-        }.launchIn(lifecycleScope)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.price.onEach {
-            priceText.text = resources.getString(CR.string.product_price_sum, it.value)
-        }.launchIn(lifecycleScope)
+        viewModel.price
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                priceText.text = resources.getString(CR.string.product_price_sum, it.value)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.selectedProducts.onEach {
-            if (it.isNotEmpty()) {
-                clearButton.isEnabled = true
-                cardButton.isEnabled = true
-                cashButton.isEnabled = true
-                priceText.alpha = 1f
-            } else {
-                clearButton.isEnabled = false
-                cardButton.isEnabled = false
-                cashButton.isEnabled = false
-                priceText.alpha = 0.5f
-            }
-            registrySelectedProductsAdapter.setProducts(it)
-        }.launchIn(lifecycleScope)
+        viewModel.selectedProducts
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                clearButton.isEnabled = it.isNotEmpty()
+                cardButton.isEnabled = it.isNotEmpty()
+                cashButton.isEnabled = it.isNotEmpty()
+
+                priceText.alpha = if (it.isNotEmpty()) 1f else 0.5f
+
+                registrySelectedProductsAdapter.setProducts(it)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
 }

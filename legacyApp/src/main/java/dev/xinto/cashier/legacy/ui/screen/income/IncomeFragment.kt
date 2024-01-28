@@ -8,19 +8,21 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dev.xinto.cashier.legacy.R
-import dev.xinto.cashier.common.R as CR
 import dev.xinto.cashier.common.domain.model.StatusMode
 import dev.xinto.cashier.common.ui.screen.income.IncomeViewModel
+import dev.xinto.cashier.legacy.R
 import dev.xinto.cashier.legacy.ui.core.CustomDividerItemDecoration
 import dev.xinto.cashier.legacy.ui.view.IconButton
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import dev.xinto.cashier.common.R as CR
 
 class IncomeFragment : Fragment(R.layout.layout_income) {
 
@@ -65,22 +67,28 @@ class IncomeFragment : Fragment(R.layout.layout_income) {
         val modeIncome = view.findViewById<TextView>(R.id.income_mode_income)
         val fullIncome = view.findViewById<TextView>(R.id.income_full_income)
 
-        viewModel.statusMode.onEach {
-            val tag = incomeModes.findViewWithTag<RadioButton>(it)
-            incomeModes.check(tag.id)
-        }.launchIn(lifecycleScope)
+        viewModel.statusMode
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                val tag = incomeModes.findViewWithTag<RadioButton>(it)
+                incomeModes.check(tag.id)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.products.onEach {
-            incomeAdapter.setProducts(it)
-        }.launchIn(lifecycleScope)
+        viewModel.products
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                incomeAdapter.setProducts(it)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.pricePerMode.onEach {
-            modeIncome.text = resources.getString(CR.string.product_price_sum, it.value)
-        }.launchIn(lifecycleScope)
+        viewModel.pricePerMode
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED).onEach {
+                modeIncome.text = resources.getString(CR.string.product_price_sum, it.value)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
 
-        viewModel.price.onEach {
-            fullIncome.text = resources.getString(CR.string.product_price_sum, it.value)
-        }.launchIn(lifecycleScope)
+        viewModel.price.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                fullIncome.text = resources.getString(CR.string.product_price_sum, it.value)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     private fun getStringForStatusMode(statusMode: StatusMode): String {

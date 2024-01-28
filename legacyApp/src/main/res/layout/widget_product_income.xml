@@ -1,45 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
+    android:baselineAligned="false"
     android:orientation="horizontal"
-    android:baselineAligned="false">
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/product_income_name"
+            style="@style/Text.List.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            tools:text="კუბდარი"
-            style="@style/Text.List.Title"/>
+            tools:text="კუბდარი" />
 
         <TextView
             android:id="@+id/product_income_count"
+            style="@style/Text.List.Supporting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            style="@style/Text.List.Supporting"
-            tools:text="რაოდენობა: 4"/>
+            tools:text="რაოდენობა: 4" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/product_income_price"
+        style="@style/Text.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="1dp"
-        style="@style/Text.Title"
-        tools:text="4.00GEL"
-        android:layout_gravity="center"/>
+        tools:text="4.00GEL" />
 
 </LinearLayout>

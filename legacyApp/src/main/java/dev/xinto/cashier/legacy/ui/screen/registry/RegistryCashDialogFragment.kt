@@ -5,6 +5,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dev.xinto.cashier.common.domain.model.Price
 import dev.xinto.cashier.common.ui.screen.registry.RegistryCashViewModel
@@ -41,20 +44,22 @@ class RegistryCashDialogFragment : TitleLessDialogFragment(R.layout.dialog_cash)
             }
         }
 
-        viewModel.change.onEach {
-            if (it == null) {
-                payButton.isEnabled = false
-                change.visibility = View.INVISIBLE
-            } else {
-                payButton.isEnabled = true
-                change.visibility = View.VISIBLE
-                change.text = resources.getString(CR.string.cash_change, it)
-            }
-        }.launchIn(lifecycleScope)
+        viewModel.change
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                payButton.isEnabled = it != null
+                change.isVisible = it != null
 
-        viewModel.cash.onEach {
-            display.setText(it)
-        }.launchIn(lifecycleScope)
+                if (it != null) {
+                    change.text = resources.getString(CR.string.cash_change, it)
+                }
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
+
+        viewModel.cash
+            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+            .onEach {
+                display.setText(it)
+            }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     companion object {

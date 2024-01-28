@@ -10,7 +10,7 @@ class IconButton @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = R.style.IconButton
-): AppCompatImageButton(context, attributeSet, defStyleAttr) {
+) : AppCompatImageButton(context, attributeSet, defStyleAttr) {
 
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
@@ -26,6 +26,7 @@ class IconButton @JvmOverloads constructor(
                 alpha = 0.7f
                 return true
             }
+
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 alpha = 1f
                 return true

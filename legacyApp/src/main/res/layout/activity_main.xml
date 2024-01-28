@@ -12,19 +12,19 @@
 
         <dev.xinto.cashier.legacy.ui.view.Tab
             android:id="@+id/tab_registry"
+            style="@style/Tab"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_point_of_sale"
             android:background="@android:color/transparent"
-            style="@style/Tab"/>
+            app:srcCompat="@drawable/ic_point_of_sale" />
 
         <dev.xinto.cashier.legacy.ui.view.Tab
             android:id="@+id/tab_status"
+            style="@style/Tab"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:srcCompat="@drawable/ic_history"
             android:background="@android:color/transparent"
-            style="@style/Tab"/>
+            app:srcCompat="@drawable/ic_history" />
 
     </LinearLayout>
 
@@ -32,7 +32,7 @@
         android:id="@+id/registry_result_divider"
         android:layout_width="2dp"
         android:layout_height="match_parent"
-        android:background="@color/lightgray"/>
+        android:background="@color/lightgray" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_fragment"

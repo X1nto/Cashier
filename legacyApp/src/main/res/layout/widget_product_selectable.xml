@@ -4,37 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="12dp">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/product_selectable_name"
+            style="@style/Text.List.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
-            tools:text="კუბდარი"
-            style="@style/Text.List.Title"/>
+            tools:text="კუბდარი" />
 
         <TextView
             android:id="@+id/product_selectable_price"
+            style="@style/Text.List.Supporting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
-            style="@style/Text.List.Supporting"
-            tools:text="ფასი: 4ლ"/>
+            tools:text="ფასი: 4ლ" />
 
     </LinearLayout>
 
     <dev.xinto.cashier.legacy.ui.view.IconButton
         android:id="@+id/product_selectable_action_add"
         style="@style/IconButton.Primary"
-        app:srcCompat="@drawable/ic_add"/>
+        app:srcCompat="@drawable/ic_add" />
 
 </LinearLayout>
