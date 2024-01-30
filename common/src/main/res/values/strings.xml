@@ -21,7 +21,7 @@
     <string name="income_drink_card">სასმელი ბარათით</string>
     <string name="income_drink_cash">სასმელი ქეშით</string>
 
-    <string name="clear_title">ნამდვილად გსურთ მონაცემთა ბაზის გასუფთავება?</string>
+    <string name="clear_title">ნამდვილად გსურთ შემოსავალის ბაზის გასუფთავება?</string>
     <string name="clear_subtitle">გასუფთავების შემდეგ ვეღარ შეძლებთ მონაცემების დაბრუნებას</string>
     <string name="clear_proceed">წაშლა</string>
 
