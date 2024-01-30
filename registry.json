@@ -27,7 +27,7 @@
   {"name": "ჰამბურგერი", "price": "3.50", "type": "meal"},
   {"name": "ქაბაბი", "price": "3.00", "type": "meal"},
   {"name": "ნამცხვარი ვაშლის დარიჩინით", "price": "2.50", "type": "meal"},
-  {"name": "ნამცხვარი ფორთოხლის", "price": "2.00", "type": "meal"},
+  {"name": "ნამცხვარი ფორთოხლის", "price": "2.50", "type": "meal"},
   {"name": "მაფინი", "price": "1.50", "type": "meal"},
   {"name": "ქადა", "price": "1.50", "type": "meal"},
   {"name": "ფუნთუშა", "price": "1.00", "type": "meal"},
