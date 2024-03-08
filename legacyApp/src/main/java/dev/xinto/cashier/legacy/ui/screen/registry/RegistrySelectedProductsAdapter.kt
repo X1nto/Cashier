@@ -49,7 +49,7 @@ class RegistrySelectedProductsAdapter(
         }
         holder.productName.text = product.name
         holder.productCount.text = holder.productCount.context.getString(CR.string.product_amount, product.countAsString)
-        holder.productPrice.text = holder.productPrice.context.getString(CR.string.product_price_sum, product.price.value)
+        holder.productPrice.text = holder.productPrice.context.getString(CR.string.product_price_sum, product.price.toString())
     }
 
 }

@@ -20,20 +20,20 @@ value class ParcelableSelectedProduct(
         when (product) {
             is MealSelectedProduct -> {
                 dest.writeString(Type.Food.name)
-                dest.writeDouble(product.mealPrice.value)
+                dest.writeInt(product.mealPrice.value)
                 dest.writeInt(product.meals)
                 dest.writeString(product.name)
             }
             is BottleSelectedProduct -> {
                 dest.writeString(Type.Bottle.name)
-                dest.writeDouble(product.bottlePrice.value)
+                dest.writeInt(product.bottlePrice.value)
                 dest.writeInt(product.bottles)
                 dest.writeString(product.name)
             }
             is MeasuredSelectedProduct -> {
                 dest.writeString(Type.Measured.name)
-                dest.writeDouble(product.pricePerKilo.value)
-                dest.writeDouble(product.kilos)
+                dest.writeInt(product.pricePerGram.value)
+                dest.writeInt(product.grams)
                 dest.writeString(product.name)
             }
         }
@@ -48,21 +48,21 @@ value class ParcelableSelectedProduct(
             val selectedProduct = when (Type.valueOf(parcel.readString()!!)) {
                 Type.Measured -> {
                     MeasuredSelectedProduct(
-                        pricePerKilo = parcel.readDouble().asPrice(),
-                        kilos = parcel.readDouble(),
+                        pricePerGram = parcel.readInt().asPrice(),
+                        grams = parcel.readInt(),
                         name = parcel.readString()!!
                     )
                 }
                 Type.Food -> {
                     MealSelectedProduct(
-                        mealPrice = parcel.readDouble().asPrice(),
+                        mealPrice = parcel.readInt().asPrice(),
                         meals = parcel.readInt(),
                         name = parcel.readString()!!
                     )
                 }
                 Type.Bottle -> {
                     BottleSelectedProduct(
-                        bottlePrice = parcel.readDouble().asPrice(),
+                        bottlePrice = parcel.readInt().asPrice(),
                         bottles = parcel.readInt(),
                         name = parcel.readString()!!
                     )
@@ -162,36 +162,36 @@ data class BottleSelectedProduct(
 
 @Parcelize
 data class MeasuredSelectedProduct(
-    val pricePerKilo: Price,
-    val kilos: Double,
+    val pricePerGram: Price,
+    val grams: Int,
     override val name: String
 ) : SelectedProduct {
 
     @IgnoredOnParcel
-    override val price = pricePerKilo * kilos
+    override val price = pricePerGram * grams
 
     @IgnoredOnParcel
-    override val countAsString: String = kilos.toString()
+    override val countAsString: String = grams.toString()
 
     override fun parseNewCount(count: String): SelectedProduct? {
-        val parsedCount = count.toDoubleOrNull() ?: return null
+        val parsedCount = count.toIntOrNull() ?: return null
         if (parsedCount <= 0) return null
-        return this.copy(kilos = parsedCount)
+        return this.copy(grams = parsedCount)
     }
 
 
     @IgnoredOnParcel
-    override val canDecrease: Boolean = kilos - 0.1 > 0
+    override val canDecrease: Boolean = grams - 0.1 > 0
 
     override fun increased(): SelectedProduct {
-        return this.copy(kilos = kilos + 1.0)
+        return this.copy(grams = grams + 1000)
     }
 
     override fun decreased(): SelectedProduct? {
-        val nextKilos = kilos - 0.1
-        if (nextKilos <= 0) {
+        val nextGrams = grams - 100
+        if (nextGrams <= 0) {
             return null
         }
-        return this.copy(kilos = nextKilos)
+        return this.copy(grams = nextGrams)
     }
 }

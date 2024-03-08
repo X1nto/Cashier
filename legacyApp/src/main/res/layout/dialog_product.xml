@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -16,73 +15,40 @@
         android:paddingEnd="48dp">
 
         <TextView
-            android:id="@+id/edit_title"
+            android:id="@+id/products_product_title"
             style="@style/Text.Dialog.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
-            tools:text="კუბდარი" />
+            android:text="@string/products_product_title"/>
 
-        <TextView
-            android:id="@+id/edit_subtitle"
-            style="@style/Text.Dialog.Subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="8dp"
-            android:text="@string/edit_subtitle" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edit_display"
+            android:id="@+id/products_product_name"
             style="@style/Display"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <dev.xinto.cashier.legacy.ui.view.Keypad
-                android:id="@+id/edit_keypad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:type="integer" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="32dp"
-                android:orientation="vertical">
-
-                <dev.xinto.cashier.legacy.ui.view.IconButton
-                    android:id="@+id/edit_action_increment"
-                    style="@style/IconButton.Primary"
-                    android:layout_marginBottom="6dp"
-                    app:srcCompat="@drawable/ic_add" />
-
-                <dev.xinto.cashier.legacy.ui.view.IconButton
-                    android:id="@+id/edit_action_decrement"
-                    style="@style/IconButton.Primary"
-                    android:layout_marginTop="6dp"
-                    app:srcCompat="@drawable/ic_remove" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/edit_price"
-            style="@style/Text.Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:layout_marginTop="16dp"
-            tools:text="ფასი: 4.50ლ" />
+            android:clickable="true"
+            android:focusable="true"
+            android:editable="true"
+            android:hint="@string/product_name" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/products_product_price"
+            style="@style/Display"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/product_price"/>
+
+        <dev.xinto.cashier.legacy.ui.view.Keypad
+            android:id="@+id/products_product_keypad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:type="decimal" />
 
     </LinearLayout>
 
@@ -97,7 +63,7 @@
         android:layout_height="wrap_content">
 
         <dev.xinto.cashier.legacy.ui.view.Button
-            android:id="@+id/edit_action_cancel"
+            android:id="@+id/products_product_action_cancel"
             style="@style/Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -110,7 +76,7 @@
             android:background="@color/lightgray" />
 
         <dev.xinto.cashier.legacy.ui.view.Button
-            android:id="@+id/edit_action_save"
+            android:id="@+id/products_product_action_save"
             style="@style/Button.Success"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

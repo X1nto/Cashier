@@ -26,6 +26,14 @@
             android:background="@android:color/transparent"
             app:srcCompat="@drawable/ic_history" />
 
+        <dev.xinto.cashier.legacy.ui.view.Tab
+            android:id="@+id/tab_products"
+            style="@style/Tab"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_inventory" />
+
     </LinearLayout>
 
     <View

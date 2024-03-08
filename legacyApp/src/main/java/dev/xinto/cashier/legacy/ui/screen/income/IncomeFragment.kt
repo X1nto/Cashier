@@ -8,8 +8,6 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,27 +66,25 @@ class IncomeFragment : Fragment(R.layout.layout_income) {
         val fullIncome = view.findViewById<TextView>(R.id.income_full_income)
 
         viewModel.statusMode
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
             .onEach {
                 val tag = incomeModes.findViewWithTag<RadioButton>(it)
                 incomeModes.check(tag.id)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            }.launchIn(lifecycleScope)
 
         viewModel.products
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
             .onEach {
                 incomeAdapter.setProducts(it)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+            }.launchIn(lifecycleScope)
 
         viewModel.pricePerMode
-            .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED).onEach {
-                modeIncome.text = resources.getString(CR.string.product_price_sum, it.value)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
-
-        viewModel.price.flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
             .onEach {
-                fullIncome.text = resources.getString(CR.string.product_price_sum, it.value)
-            }.launchIn(viewLifecycleOwner.lifecycleScope)
+                modeIncome.text = resources.getString(CR.string.product_price_sum, it.toString())
+            }.launchIn(lifecycleScope)
+
+        viewModel.price
+            .onEach {
+                fullIncome.text = resources.getString(CR.string.product_price_sum, it.toString())
+            }.launchIn(lifecycleScope)
     }
 
     private fun getStringForStatusMode(statusMode: StatusMode): String {

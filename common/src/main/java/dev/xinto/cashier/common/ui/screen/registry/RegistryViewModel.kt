@@ -1,70 +1,74 @@
 package dev.xinto.cashier.common.ui.screen.registry
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dev.xinto.cashier.common.domain.DomainCacheableState
 import dev.xinto.cashier.common.domain.model.Price
-import dev.xinto.cashier.common.domain.model.Result
-import dev.xinto.cashier.common.domain.model.SelectableProduct
+import dev.xinto.cashier.common.domain.model.Product
 import dev.xinto.cashier.common.domain.model.SelectedProduct
+import dev.xinto.cashier.common.domain.repository.ProductsRepository
 import dev.xinto.cashier.common.domain.repository.RegistryRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class RegistryViewModel(
-    private val repository: RegistryRepository
+    private val registryRepository: RegistryRepository,
+    private val productsRepository: ProductsRepository
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<RegistryState>(RegistryState.Loading)
-    val state = _state.asStateFlow()
+    private val products = productsRepository.getProducts()
+    val state = products.flow
+        .map {
+            when (it) {
+                is DomainCacheableState.Loaded -> RegistryState.Success(it.value)
+                is DomainCacheableState.Loading -> RegistryState.Loading
+            }
+        }.catch {
+            emit(RegistryState.Error)
+            Log.d("RegistryViewModel", "state", it)
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = RegistryState.Loading,
+        )
 
-    val selectedProducts = repository.observeSelectedProducts()
+    val selectedProducts = registryRepository.observeSelectedProducts()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = listOf(),
         )
 
-    val price = repository.observePrice()
+    val price = registryRepository.observePrice()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = Price.Zero
         )
 
-    fun refresh(force: Boolean = true) {
-        viewModelScope.launch {
-            _state.value = RegistryState.Loading
-
-            _state.value = when (val result = repository.fetchProducts(force)) {
-                is Result.Success -> RegistryState.Success(result.data)
-                is Result.Error -> RegistryState.Error
-            }
-        }
+    fun refresh() {
+        products.refresh()
     }
 
-    fun selectProduct(selectableProduct: SelectableProduct) {
-        repository.selectProduct(selectableProduct)
+    fun selectProduct(product: Product) {
+        registryRepository.selectProduct(product)
     }
 
     fun removeProduct(selectedProduct: SelectedProduct) {
-        repository.removeProduct(selectedProduct.name)
+        registryRepository.removeProduct(selectedProduct.name)
     }
 
     fun clearProducts() {
-        repository.clearProducts()
+        registryRepository.clearProducts()
     }
 
     fun payWithCard() {
         runBlocking {
-            repository.payWithCard()
+            registryRepository.payWithCard()
         }
-    }
-
-    init {
-        refresh(force = false)
     }
 }

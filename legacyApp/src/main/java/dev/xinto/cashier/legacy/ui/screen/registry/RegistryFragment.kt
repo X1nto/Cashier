@@ -99,7 +99,7 @@ class RegistryFragment : Fragment(R.layout.layout_registry) {
         viewModel.price
             .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
             .onEach {
-                priceText.text = resources.getString(CR.string.product_price_sum, it.value)
+                priceText.text = resources.getString(CR.string.product_price_sum, it.toString())
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 
         viewModel.selectedProducts

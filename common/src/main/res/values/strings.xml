@@ -2,17 +2,17 @@
     <string name="app_name">Cashier</string>
 
     <string name="dialog_action_cancel">გაუქმება</string>
+    <string name="dialog_action_save">შენახვა</string>
 
-    <string name="registry_title">პროდუქტები</string>
+    <string name="registry_title">სალარო</string>
     <string name="registry_state_loading">იტვირთება…</string>
     <string name="registry_state_error">შეცდომა ჩატვირთვისას!</string>
 
     <string name="edit_subtitle">ჩაწერეთ რაოდენობა</string>
-    <string name="edit_action_save">შენახვა</string>
 
     <string name="cash_title">ქეშით გადახდა</string>
     <string name="cash_subtitle">ჩაწერეთ თანხა</string>
-    <string name="cash_change">ხურდა: %1$.2fGEL</string>
+    <string name="cash_change">ხურდა: %1$sGEL</string>
     <string name="cash_action_pay">გადახდა</string>
 
     <string name="income_title">შემოსავალი</string>
@@ -25,8 +25,13 @@
     <string name="clear_subtitle">გასუფთავების შემდეგ ვეღარ შეძლებთ მონაცემების დაბრუნებას</string>
     <string name="clear_proceed">წაშლა</string>
 
-    <string name="price">%1$.2fGEL</string>
+    <string name="price">%1$.2f</string>
+    <string name="product_name">დასახელება</string>
     <string name="product_amount">რაოდენობა: %1$s</string>
-    <string name="product_price_single">ფასი: %1$.2fGEL</string>
-    <string name="product_price_sum">ჯამი: %1$.2fGEL</string>
+    <string name="product_price">ფასი</string>
+    <string name="product_price_single">ფასი: %1$sGEL</string>
+    <string name="product_price_sum">ჯამი: %1$sGEL</string>
+
+    <string name="products_title">პროდუქტები</string>
+    <string name="products_product_title">პროდუქტი</string>
 </resources>

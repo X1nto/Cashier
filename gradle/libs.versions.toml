@@ -31,6 +31,8 @@ ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlin
 koin-android = { group = "io.insert-koin", name = "koin-android", version = "3.5.0" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version = "3.5.0" }
 
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+
 [bundles]
 androidx-views = ["androidx-recyclerview", "androidx-constraintlayout", "androidx-fragment"]
 ktor = ["ktor-core", "ktor-android", "ktor-contentNegotiation", "ktor-serialization-json"]

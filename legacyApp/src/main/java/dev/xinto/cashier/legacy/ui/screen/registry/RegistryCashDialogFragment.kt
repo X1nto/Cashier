@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.view.isVisible
+import androidx.core.view.isInvisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
@@ -48,7 +48,7 @@ class RegistryCashDialogFragment : TitleLessDialogFragment(R.layout.dialog_cash)
             .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
             .onEach {
                 payButton.isEnabled = it != null
-                change.isVisible = it != null
+                change.isInvisible = it == null
 
                 if (it != null) {
                     change.text = resources.getString(CR.string.cash_change, it)
@@ -67,7 +67,7 @@ class RegistryCashDialogFragment : TitleLessDialogFragment(R.layout.dialog_cash)
         operator fun invoke(price: Price): RegistryCashDialogFragment {
             return RegistryCashDialogFragment().apply {
                 arguments = Bundle().apply {
-                    putDouble(RegistryCashViewModel.KEY_PRICE, price.value)
+                    putParcelable(RegistryCashViewModel.KEY_PRICE, price)
                 }
             }
         }

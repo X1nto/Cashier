@@ -1,22 +1,23 @@
 package dev.xinto.cashier.common.network.registry.model
 
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.serialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiProduct(
+    val id: String,
     val name: String,
-    val price: String,
+    val price: Int,
     val type: ApiProductType
 )
 
 @Serializable(with = ApiProductType.Serializer::class)
 enum class ApiProductType {
-    Meal, Bottle;
+    Food, Drink;
 
     companion object Serializer : KSerializer<ApiProductType> {
         override val descriptor: SerialDescriptor
@@ -24,8 +25,8 @@ enum class ApiProductType {
 
         override fun deserialize(decoder: Decoder): ApiProductType {
             return when (decoder.decodeString()) {
-                "meal" -> Meal
-                "bottle" -> Bottle
+                "food" -> Food
+                "drink" -> Drink
                 else -> throw UnsupportedOperationException()
             }
         }

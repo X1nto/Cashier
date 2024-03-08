@@ -64,7 +64,7 @@ class RegistryEditDialogFragment : TitleLessDialogFragment(R.layout.dialog_edit)
 
                 if (it == null) return@onEach
 
-                price.text = resources.getString(CR.string.product_price_sum, it.price.value)
+                price.text = resources.getString(CR.string.product_price_sum, it.price.toString())
                 title.text = it.name
             }.launchIn(viewLifecycleOwner.lifecycleScope)
 

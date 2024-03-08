@@ -1,48 +1,32 @@
 package dev.xinto.cashier.common.domain.model
 
-enum class SelectableProductType {
-    Meal,
-    Bottle
-}
 
 data class SelectableProduct(
+    val id: String,
     val name: String,
     val price: Price,
-    val type: SelectableProductType
+    val type: ProductType
 )
 
-fun SelectableProduct.toSelectedProduct(): SelectedProduct {
-    return when (type) {
-        SelectableProductType.Meal -> {
-            MealSelectedProduct(
-                mealPrice = price,
-                meals = 1,
-                name = name
-            )
-        }
 
-        SelectableProductType.Bottle -> {
-            BottleSelectedProduct(
-                bottlePrice = price,
-                bottles = 1,
-                name = name
-            )
-        }
-    }
-}
-
-fun MealSelectableProduct(name: String, price: Double): SelectableProduct {
+fun MealSelectableProduct(id: String, name: String, price: Int): SelectableProduct {
     return SelectableProduct(
+        id = id,
         name = name,
         price = Price(price),
-        type = SelectableProductType.Meal
+        type = ProductType.Meal
     )
 }
 
-fun BottleSelectableProduct(name: String, price: Double): SelectableProduct {
+fun BottleSelectableProduct(
+    id: String,
+    name: String,
+    price: Int
+): SelectableProduct {
     return SelectableProduct(
+        id = id,
         name = name,
         price = Price(price),
-        type = SelectableProductType.Bottle
+        type = ProductType.Bottle
     )
 }

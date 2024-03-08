@@ -2,6 +2,7 @@ package dev.xinto.cashier.common.ui.screen.registry
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import dev.xinto.cashier.common.domain.model.Price
 import dev.xinto.cashier.common.domain.repository.RegistryRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -14,18 +15,18 @@ class RegistryCashViewModel(
     private val repository: RegistryRepository
 ) : ViewModel() {
 
-    private val price = savedStateHandle.get<Double>(KEY_PRICE)!!
+    private val price = savedStateHandle.get<Price>(KEY_PRICE)!!
 
-    private val _cash = MutableStateFlow(String.format("%.2f", price))
+    private val _cash = MutableStateFlow(price.toString())
     val cash = _cash.asStateFlow()
 
     val change = cash.map {
-        val nonNullCash = it.toDoubleOrNull()
+        val nonNullCash = Price.fromString(it)
             ?: return@map null
 
         if (nonNullCash < price) return@map null
 
-        nonNullCash - price
+        (nonNullCash - price).toString()
     }
 
     fun popDigit() {

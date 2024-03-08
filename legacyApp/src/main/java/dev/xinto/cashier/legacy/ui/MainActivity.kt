@@ -12,6 +12,7 @@ import dev.xinto.cashier.common.ui.navigation.Destination
 import dev.xinto.cashier.common.ui.screen.main.MainViewModel
 import dev.xinto.cashier.legacy.R
 import dev.xinto.cashier.legacy.ui.screen.income.IncomeFragment
+import dev.xinto.cashier.legacy.ui.screen.products.ProductsFragment
 import dev.xinto.cashier.legacy.ui.screen.registry.RegistryFragment
 import dev.xinto.cashier.legacy.ui.view.Tab
 import kotlinx.coroutines.flow.launchIn
@@ -39,32 +40,49 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     viewModel.navigate(Destination.Status)
                 }
             }
+        val productsTab = findViewById<Tab>(R.id.tab_products)
+            .apply {
+                setOnClickListener {
+                    viewModel.navigate(Destination.Products)
+                }
+            }
 
         val registryFragment = RegistryFragment()
         val incomeFragment = IncomeFragment()
+        val productsFragment = ProductsFragment()
         supportFragmentManager.commit {
             add(R.id.main_fragment, registryFragment)
             add(R.id.main_fragment, incomeFragment)
+            add(R.id.main_fragment, productsFragment)
         }
 
         viewModel.screen
             .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
             .onEach {
-                registryTab.isSelected = it is Destination.Registry
-                statusTab.isSelected = it is Destination.Status
+                registryTab.isSelected = it == Destination.Registry
+                statusTab.isSelected = it == Destination.Status
+                productsTab.isSelected = it == Destination.Products
 
                 supportFragmentManager.commit {
                     //garbage code
                     setReorderingAllowed(true)
                     when (it) {
-                        is Destination.Registry -> {
+                        Destination.Registry -> {
                             show(registryFragment)
                             hide(incomeFragment)
+                            hide(productsFragment)
                         }
 
-                        is Destination.Status -> {
-                            hide(registryFragment)
+                        Destination.Status -> {
                             show(incomeFragment)
+                            hide(registryFragment)
+                            hide(productsFragment)
+                        }
+
+                        Destination.Products -> {
+                            show(productsFragment)
+                            hide(incomeFragment)
+                            hide(registryFragment)
                         }
                     }
                 }

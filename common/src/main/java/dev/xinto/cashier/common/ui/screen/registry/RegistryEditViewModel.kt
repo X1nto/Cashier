@@ -3,7 +3,6 @@ package dev.xinto.cashier.common.ui.screen.registry
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dev.xinto.cashier.common.domain.model.ParcelableSelectedProduct
 import dev.xinto.cashier.common.domain.model.SelectedProduct
 import dev.xinto.cashier.common.domain.repository.RegistryRepository
 import kotlinx.coroutines.flow.MutableStateFlow

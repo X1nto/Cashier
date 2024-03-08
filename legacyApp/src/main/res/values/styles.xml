@@ -42,7 +42,7 @@
         <item name="android:clickable">false</item>
         <item name="android:editable">false</item>
         <item name="android:inputType">none</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="Tab" parent="Widget.AppCompat.ImageButton">

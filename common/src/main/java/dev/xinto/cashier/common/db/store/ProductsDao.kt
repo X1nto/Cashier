@@ -36,7 +36,7 @@ interface ProductsDao {
         VALUES 
             (:id, :name, :price, COALESCE((SELECT quantity FROM products WHERE id = :id) + :quantity, :quantity), :payment, :type) 
     """)
-    suspend fun putDailyProduct(id: String, name: String, price: Double, quantity: Int, payment: EntityPaymentType, type: EntityProductType)
+    suspend fun putDailyProduct(id: String, name: String, price: Int, quantity: Int, payment: EntityPaymentType, type: EntityProductType)
 
     @Query("DELETE FROM products")
     suspend fun clear()
