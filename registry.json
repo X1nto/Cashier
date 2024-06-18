@@ -37,7 +37,7 @@
   {"name": "მხლოვანი სამარხვო", "price": "3.00", "type": "meal"},
   {"name": "განსხვავებული", "price": "0.50", "type": "meal"},
   {"name": "წყალი ბაკურიანი", "price": "0.80", "type": "bottle"},
-  {"name": "წყალი მთის", "price": "0.60", "type": "bottle"},
+  {"name": "წყალი მთის", "price": "0.70", "type": "bottle"},
   {"name": "წყალი ჯეონატურა", "price": "0.70", "type": "bottle"},
   {"name": "წყალი ბახმარო", "price": "0.90", "type": "bottle"},
   {"name": "ბორჯომი", "price": "2.00", "type": "bottle"},
