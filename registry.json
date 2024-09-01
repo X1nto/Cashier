@@ -1,6 +1,6 @@
 [
-  {"name": "ხაჭაპური იმერული", "price": 45, "type": "food"},
-  {"name": "ხაჭაპური მეგრული", "price": 60, "type": "food"},
+  {"name": "ხაჭაპური იმერული", "price": 450, "type": "food"},
+  {"name": "ხაჭაპური მეგრული", "price": 600, "type": "food"},
   {"name": "ხაჭაპური ნახ. ფენოვანი", "price": 300, "type": "food"},
   {"name": "ხაჭაპური ლისტი", "price": 400, "type": "food"},
   {"name": "ხაჭაპური აჭარული", "price": 1000, "type": "food"},
