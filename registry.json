@@ -1,7 +1,7 @@
 [
   {"name": "ხაჭაპური იმერული", "price": 450, "type": "food"},
   {"name": "ხაჭაპური მეგრული", "price": 600, "type": "food"},
-  {"name": "ხაჭაპური ნახ. ფენოვანი", "price": 300, "type": "food"},
+  {"name": "ხაჭაპური ნახ. ფენოვანი", "price": 350, "type": "food"},
   {"name": "ხაჭაპური ლისტი", "price": 400, "type": "food"},
   {"name": "ხაჭაპური აჭარული", "price": 1000, "type": "food"},
   {"name": "ხაჭაპური აჭარული დიდი", "price": 1500, "type": "food"},
@@ -18,7 +18,7 @@
   {"name": "ფიჩინი სოკოთი", "price": 500, "type": "food"},
   {"name": "ღვეზელი გურული", "price": 350, "type": "food"},
   {"name": "ღვეზელი ქათმით", "price": 350, "type": "food"},
-  {"name": "ღვეზელი სოკოთი", "price": 180, "type": "food"},
+  {"name": "ღვეზელი სოკოთი", "price": 200, "type": "food"},
   {"name": "ღვეზელი კარტოფილით", "price": 150, "type": "food"},
   {"name": "ღვეზელი ხორცით", "price": 250, "type": "food"},
   {"name": "ღვეზელი ისპანახის", "price": 300, "type": "food"},
