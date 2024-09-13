@@ -50,6 +50,7 @@
   {"name": "ჩაი", "price": 100, "type": "drink"},
   {"name": "ცივი ჩაი", "price": 200, "type": "drink"},
   {"name": "კოკა კოლა", "price": 180, "type": "drink"},
+  {"name": "კოკა კოლა პატარა", "price": 120, "type": "drink"},
   {"name": "კოკა კოლა ქილის/პლასტმასის", "price": 200, "type": "drink"},
   {"name": "ყავა კოლა", "price": 200, "type": "drink"},
   {"name": "ფანტა", "price": 180, "type": "drink"},
