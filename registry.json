@@ -1,5 +1,5 @@
 [
-  {"name": "ხაჭაპური იმერული", "price": 450, "type": "food"},
+  {"name": "ხაჭაპური იმერული", "price": 500, "type": "food"},
   {"name": "ხაჭაპური მეგრული", "price": 600, "type": "food"},
   {"name": "ხაჭაპური ნახ. ფენოვანი", "price": 350, "type": "food"},
   {"name": "ხაჭაპური ლისტი", "price": 400, "type": "food"},
@@ -12,7 +12,7 @@
   {"name": "ლობიანი წიწაკით", "price": 350, "type": "food"},
   {"name": "ლობიანი სვანური", "price": 350, "type": "food"},
   {"name": "ლობიანი სეზამით", "price": 400, "type": "food"},
-  {"name": "კუბდარი", "price": 450, "type": "food"},
+  {"name": "კუბდარი", "price": 500, "type": "food"},
   {"name": "კუბდარი ორაგულის", "price": 700, "type": "food"},
   {"name": "ოჯახური", "price": 350, "type": "food"},
   {"name": "ხაბიზგინა", "price": 250, "type": "food"},
