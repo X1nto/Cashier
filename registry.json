@@ -28,6 +28,7 @@
   {"name": "ჰოთდოგი", "price": 200, "type": "food"},
   {"name": "პიცა", "price": 250, "type": "food"},
   {"name": "პიცა დიდი", "price": 1500, "type": "food"},
+  {"name": "კალცონე", "price": 500, "type": "food"},
   {"name": "ჰამბურგერი", "price": 500, "type": "food"},
   {"name": "ქაბაბი", "price": 300, "type": "food"},
   {"name": "ნამცხვარი ვაშლის დარიჩინით", "price": 250, "type": "food"},
