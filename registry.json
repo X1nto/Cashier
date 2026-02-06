@@ -6,7 +6,7 @@
   {"name": "ხაჭაპური ლორით", "price": 500, "type": "food"},
   {"name": "ხაჭაპური აჭარული", "price": 1000, "type": "food"},
   {"name": "ხაჭაპური აჭარული დიდი", "price": 1500, "type": "food"},
-  {"name": "ლობიანი იმერული", "price": 300, "type": "food"},
+  {"name": "ლობიანი იმერული", "price": 400, "type": "food"},
   {"name": "ლობიანი ნახ. ფენოვანი", "price": 250, "type": "food"},
   {"name": "ლობიანი ლორით", "price": 400, "type": "food"},
   {"name": "ლობიანი წიწაკით", "price": 350, "type": "food"},
