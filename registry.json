@@ -19,7 +19,7 @@
   {"name": "ხაბიზგინა", "price": 250, "type": "food"},
   {"name": "ფიჩინი ხორცით", "price": 700, "type": "food"},
   {"name": "ფიჩინი სოკოთი", "price": 500, "type": "food"},
-  {"name": "ღვეზელი გურული", "price": 350, "type": "food"},
+  {"name": "ღვეზელი გურული", "price": 380, "type": "food"},
   {"name": "ღვეზელი ქათმით", "price": 380, "type": "food"},
   {"name": "ღვეზელი სოკოთი", "price": 280, "type": "food"},
   {"name": "ღვეზელი კარტოფილით", "price": 150, "type": "food"},
